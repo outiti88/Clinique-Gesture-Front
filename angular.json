@@ -87,7 +87,7 @@
                         "styles": [
                             "src/styles.css",
                             "./node_modules/ngx-toastr/toastr.css",
-                            "./node_modules/bootswatch/dist/journal/bootstrap.min.css"
+                            "./node_modules/bootswatch/dist/journal/bootstrap.css"
                         ],
                         "scripts": [
                             "./node_modules/jquery/dist/jquery.js",
