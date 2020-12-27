@@ -10,19 +10,20 @@ import { NotfoundComponent } from './components/partials/notfound/notfound.compo
 import { LoginComponent } from './components/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'
+import { AuthGuard } from './guards/auth.guard';
 
 
 
 const routes: Routes =[
   {
-    path : "" , redirectTo : '/patient' , pathMatch : 'full'
+    path : "" , redirectTo : '/patient' , pathMatch : 'full', canActivate:[AuthGuard]
   },
 
-  { path : "patient" , children:[
-    { path : " " , component : ListPatientComponent},
+  { path : "patient"  , children:[
+    { path : "" , component : ListPatientComponent},
     { path : ":id/edit " , component : EditPatientComponent},
     { path : "add" , component : AddPatientComponent}
-  ]} , 
+  ], canActivate:[AuthGuard]} , 
   {
     path : "login" , component : LoginComponent
   } ,

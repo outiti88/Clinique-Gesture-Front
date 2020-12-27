@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators  } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { TokenService } from 'src/app/services/token.service';
+import { AccountService } from 'src/app/services/account.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private router: Router,
     private authService: AuthService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private account : AccountService
     ) { }
 
   ngOnInit(): void {
@@ -37,6 +39,8 @@ export class LoginComponent implements OnInit {
 
   handleResponse(res){
     this.tokenService.handle(res);
+    this.account.changeStatut(true);
+    this.router.navigateByUrl("/patient");
   }
 
 

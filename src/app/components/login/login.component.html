@@ -4,16 +4,22 @@
         <form [formGroup]="loginForm" (ngSubmit)="login()">
             <div class="form-group">
                 <label for="email">Email*</label>
-                <input formControlName="email" type="text" class="form-control" id="email">
-                <div *ngIf="loginForm.get('email').invalid && (loginForm.get('email').touched || loginForm.get('email').dirty)">
+                <input autocomplete="off" formControlName="email" type="text" [ngClass]="(loginForm.get('email').invalid && (loginForm.get('email').touched || loginForm.get('email').dirty))?
+                'form-control is-invalid':'form-control'" id="email">
+                <div class="invalid-feedback" *ngIf="loginForm.get('email').invalid && (loginForm.get('email').touched || loginForm.get('email').dirty)">
                     <div *ngIf="loginForm.get('email').getError('required')">L'adresse email est obligatoire</div>
                     <div *ngIf="loginForm.get('email').getError('email')">Cette adresse ne correspond pas à un email</div>
                 </div>
+
+
             </div>
+
+
             <div class="form-group">
                 <label for="password">Password*</label>
-                <input formControlName="password" type="password" class="form-control" id="password">
-                <div *ngIf="loginForm.get('password').invalid && (loginForm.get('password').touched || loginForm.get('password').dirty)">
+                <input formControlName="password" type="password" [ngClass]="(loginForm.get('password').invalid && (loginForm.get('password').touched || loginForm.get('password').dirty))?
+                'form-control is-invalid':'form-control'" id="password">
+                <div class="invalid-feedback" *ngIf="loginForm.get('password').invalid && (loginForm.get('password').touched || loginForm.get('password').dirty)">
                     <div *ngIf="loginForm.get('password').getError('required')">Le mot de passe est obligatoire</div>
                     <div *ngIf="loginForm.get('password').getError('pattern')">Le mot de passe doit contenir au minimum 8 caractères</div>
                 </div>
