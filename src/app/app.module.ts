@@ -8,6 +8,8 @@ import { ListPatientComponent } from './components/list-patient/list-patient.com
 import { NavbarComponent } from './components/partials/navbar/navbar.component';
 import { NotfoundComponent } from './components/partials/notfound/notfound.component';
 import { LoginComponent } from './components/login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http'
 
 
 
@@ -42,7 +44,9 @@ const routes: Routes =[
   ],
   imports: [
     RouterModule.forRoot(routes),
-    BrowserModule
+    BrowserModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
