@@ -11,21 +11,22 @@ import { LoginComponent } from './components/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'
 import { AuthGuard } from './guards/auth.guard';
+import { AfterAuthGuard } from './guards/after-auth.guard';
 
 
 
 const routes: Routes =[
   {
-    path : "" , redirectTo : '/patient' , pathMatch : 'full', canActivate:[AuthGuard]
+    path : "" , redirectTo : '/patient' , pathMatch : 'full'
   },
 
   { path : "patient"  , children:[
-    { path : "" , component : ListPatientComponent},
-    { path : ":id/edit " , component : EditPatientComponent},
-    { path : "add" , component : AddPatientComponent}
-  ], canActivate:[AuthGuard]} , 
+    { path : "" , component : ListPatientComponent, canActivate:[AuthGuard]},
+    { path : ":id/edit " , component : EditPatientComponent , canActivate:[AuthGuard]},
+    { path : "add" , component : AddPatientComponent , canActivate:[AuthGuard]}
+  ]} , 
   {
-    path : "login" , component : LoginComponent
+    path : "login" , component : LoginComponent , canActivate:[AfterAuthGuard]
   } ,
   {
     path : "**" , component : NotfoundComponent
