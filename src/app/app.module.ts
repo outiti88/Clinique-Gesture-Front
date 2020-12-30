@@ -9,9 +9,10 @@ import { NavbarComponent } from './components/partials/navbar/navbar.component';
 import { NotfoundComponent } from './components/partials/notfound/notfound.component';
 import { LoginComponent } from './components/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { AuthGuard } from './guards/auth.guard';
 import { AfterAuthGuard } from './guards/after-auth.guard';
+import { JwtInterceptor } from './services/jwt.interceptor';
 
 
 
@@ -31,7 +32,7 @@ const routes: Routes =[
   {
     path : "**" , component : NotfoundComponent
   }
-] ;
+];
 
 
 @NgModule({
@@ -50,7 +51,13 @@ const routes: Routes =[
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass : JwtInterceptor,
+      multi : true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

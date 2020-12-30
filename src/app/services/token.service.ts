@@ -10,7 +10,7 @@ export class TokenService {
 
   set(data : any){
     localStorage.setItem('token' , data.token);
-    localStorage.setItem('id', data.id);
+    localStorage.setItem('email', data.email);
   }
 
   handle(data){
@@ -21,13 +21,13 @@ export class TokenService {
     return localStorage.getItem('token');
   }
 
-  getId(){
-    return localStorage.getItem('id');
+  getEmail(){
+    return localStorage.getItem('email');
   }
 
   remove(){
     localStorage.removeItem('token');
-    localStorage.removeItem('id');
+    localStorage.removeItem('email');
   }
 
   decode(payload){
@@ -41,12 +41,12 @@ export class TokenService {
 
   isValid(){
     const token = this.getToken();
-    const id = this.getId();
+    const email = this.getEmail();
 
     if(token){
       const payload = this.payload(token);
       if(payload){
-        return id == payload.id;
+        return email == payload.sub;
       }
     }
     return false;
