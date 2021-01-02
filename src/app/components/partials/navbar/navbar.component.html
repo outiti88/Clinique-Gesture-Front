@@ -7,16 +7,23 @@
     <div class="collapse navbar-collapse" id="navbarColor03">
         <ul *ngIf="userActuel" class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" routerLink="#">Acceuil
+                <a class="nav-link" routerLink="/">Acceuil
             <span class="sr-only">(current)</span>
           </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" routerLink="/patient/add">Patients</a>
+                <a class="nav-link" routerLink="/">Patients</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" routerLink="/">Rendez-vous</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/users">Voir Utilisateurs</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/users/add">Ajouter</a>
+            </li>
+
         </ul>
         <ul class="navbar-nav ml-auto">
             <li *ngIf="!userActuel" class="nav-item">

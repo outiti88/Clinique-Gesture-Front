@@ -16,8 +16,12 @@ export class ListPatientComponent implements OnInit {
     this.getAll();
   }
 
+  patients : any = [] ;
+
   getAll(){
-     this.patientService.getAllPatients().subscribe(res => console.log(res));
+     this.patientService.getAllPatients().subscribe((res) => {
+       this.patients = res ;
+     });
   }
 
 }

@@ -13,6 +13,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { AuthGuard } from './guards/auth.guard';
 import { AfterAuthGuard } from './guards/after-auth.guard';
 import { JwtInterceptor } from './services/jwt.interceptor';
+import { AddUserComponent } from './components/users/add-user/add-user.component';
+import { ListUserComponent } from './components/users/list-user/list-user.component';
+import { NotAuthorizedComponent } from './components/partials/not-authorized/not-authorized.component';
 
 
 
@@ -21,6 +24,11 @@ const routes: Routes =[
     path : "" , redirectTo : '/patient' , pathMatch : 'full'
   },
 
+  { path : "users"  , children:[
+    { path : "" , component : ListUserComponent, canActivate:[AuthGuard]},
+    { path : "add" , component : AddUserComponent , canActivate:[AuthGuard]}
+  ]} , 
+
   { path : "patient"  , children:[
     { path : "" , component : ListPatientComponent, canActivate:[AuthGuard]},
     { path : ":id/edit " , component : EditPatientComponent , canActivate:[AuthGuard]},
@@ -28,6 +36,9 @@ const routes: Routes =[
   ]} , 
   {
     path : "login" , component : LoginComponent , canActivate:[AfterAuthGuard]
+  } ,
+  {
+    path : "403" , component : NotAuthorizedComponent 
   } ,
   {
     path : "**" , component : NotfoundComponent
@@ -43,7 +54,9 @@ const routes: Routes =[
     ListPatientComponent,
     NavbarComponent,
     NotfoundComponent,
-    LoginComponent
+    LoginComponent,
+    AddUserComponent,
+    ListUserComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
