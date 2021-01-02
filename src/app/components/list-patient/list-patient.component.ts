@@ -8,6 +8,8 @@ import { PatientService } from 'src/app/services/patient.service';
 })
 export class ListPatientComponent implements OnInit {
 
+  
+
   constructor(private patientService : PatientService) { }
 
   ngOnInit(): void {
