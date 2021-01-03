@@ -1,4 +1,6 @@
 <div class="container mt-5">
+    <h5 class="text-center">Liste des Utilisateurs</h5>
+
     <table class="table table-hover">
         <thead>
             <tr class="table-active">
@@ -31,4 +33,14 @@
 
         </tbody>
     </table>
+</div>
+<div class="btn-toolbar mx-auto justify-content-center" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" (click)="paginateTo(1)" class="btn btn-secondary">1</button>
+        <button type="button" (click)="paginateTo(2)" class="btn btn-secondary">2</button>
+        <button type="button" (click)="paginateTo(3)" class="btn btn-secondary">3</button>
+        <button type="button" (click)="paginateTo(4)" class="btn btn-secondary">4</button>
+
+    </div>
+
 </div>

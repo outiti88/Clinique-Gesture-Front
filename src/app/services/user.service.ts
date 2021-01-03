@@ -15,6 +15,11 @@ export class UserService {
   getUsers(){
     return this.http.get(this.apiUrl);
   }
+  
+
+  getUsersPage(page){
+    return this.http.get(`${this.apiUrl}?page=${page}`);
+  }
 
   delete(id){
     return this.http.delete(`${this.apiUrl}/${id}`);
