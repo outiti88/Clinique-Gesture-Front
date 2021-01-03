@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { AccountService } from 'src/app/services/account.service';
 import { TokenService } from 'src/app/services/token.service';
 import { Router } from '@angular/router';
@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
 
   userActuel = null ;
+  roleActuel = '';
 
   constructor(
     private account : AccountService , 
@@ -22,9 +23,10 @@ export class NavbarComponent implements OnInit {
 
     this.account.isAuth.subscribe( res => {
       this.userActuel = this.tokenService.getInfos();
+      this.roleActuel = this.tokenService.getRole();
     });
-
   }
+
 
   logout(){
     this.tokenService.remove();

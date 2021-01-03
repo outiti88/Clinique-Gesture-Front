@@ -8,19 +8,19 @@
         <ul *ngIf="userActuel" class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class="nav-link" routerLink="/">Acceuil
-            <span class="sr-only">(current)</span>
-          </a>
+                         <span class="sr-only">(current)</span>
+                    </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" routerLink="/">Patients</a>
+                <a class="nav-link" *ngIf="roleActuel != 'admin'" routerLink="/">Patients</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" routerLink="/">Rendez-vous</a>
+                <a class="nav-link" *ngIf="roleActuel != 'admin'" routerLink="/">Rendez-vous</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="roleActuel == 'admin'">
                 <a class="nav-link" routerLink="/users">Voir Utilisateurs</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="roleActuel == 'admin'">
                 <a class="nav-link" routerLink="/users/add">Ajouter</a>
             </li>
 

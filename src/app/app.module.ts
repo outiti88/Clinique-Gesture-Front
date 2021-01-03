@@ -16,6 +16,8 @@ import { JwtInterceptor } from './services/jwt.interceptor';
 import { AddUserComponent } from './components/users/add-user/add-user.component';
 import { ListUserComponent } from './components/users/list-user/list-user.component';
 import { NotAuthorizedComponent } from './components/partials/not-authorized/not-authorized.component';
+import { RoleGuard } from './guards/role.guard';
+import { GpGuard } from './guards/gp.guard';
 
 
 
@@ -25,15 +27,15 @@ const routes: Routes =[
   },
 
   { path : "users"  , children:[
-    { path : "" , component : ListUserComponent, canActivate:[AuthGuard]},
-    {path : "page/:page" , component : ListUserComponent , canActivate:[AuthGuard]},
-    { path : "add" , component : AddUserComponent , canActivate:[AuthGuard]}
+    { path : "" , component : ListUserComponent, canActivate:[AuthGuard , RoleGuard]},
+    {path : "page/:page" , component : ListUserComponent , canActivate:[AuthGuard , RoleGuard]},
+    { path : "add" , component : AddUserComponent , canActivate:[AuthGuard , RoleGuard]}
   ]} , 
 
   { path : "patient"  , children:[
-    { path : "" , component : ListPatientComponent, canActivate:[AuthGuard]},
-    { path : ":id/edit " , component : EditPatientComponent , canActivate:[AuthGuard]},
-    { path : "add" , component : AddPatientComponent , canActivate:[AuthGuard]}
+    { path : "" , component : ListPatientComponent, canActivate:[AuthGuard , GpGuard]},
+    { path : ":id/edit " , component : EditPatientComponent , canActivate:[AuthGuard ,GpGuard]},
+    { path : "add" , component : AddPatientComponent , canActivate:[AuthGuard ,GpGuard]}
   ]} , 
   {
     path : "login" , component : LoginComponent , canActivate:[AfterAuthGuard]
