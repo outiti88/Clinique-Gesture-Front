@@ -11,11 +11,11 @@
                          <span class="sr-only">(current)</span>
                     </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" *ngIf="roleActuel != 'admin'" routerLink="/">Patients</a>
+            <li class="nav-item" *ngIf="roleActuel != 'admin'">
+                <a class="nav-link" routerLink="/">Patients</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" *ngIf="roleActuel != 'admin'" routerLink="/">Rendez-vous</a>
+            <li class="nav-item" *ngIf="roleActuel != 'admin'">
+                <a class="nav-link" routerLink="/">Rendez-vous</a>
             </li>
             <li class="nav-item" *ngIf="roleActuel == 'admin'">
                 <a class="nav-link" routerLink="/users">Voir Utilisateurs</a>

@@ -25,7 +25,7 @@
                     </a>
                 </td>
                 <td>
-                    <button class="btn btn-sm btn-dark">
+                    <button (click)="deleteUser(user.UserId,user.firstName+' '+user.lastName)" class="btn btn-sm btn-dark">
                     <i class="fas fa-trash"></i>
                 </button>
                 </td>

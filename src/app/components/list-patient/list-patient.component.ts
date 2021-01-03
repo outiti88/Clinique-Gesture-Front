@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PatientService } from 'src/app/services/patient.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-patient',
@@ -10,9 +11,13 @@ export class ListPatientComponent implements OnInit {
 
   
 
-  constructor(private patientService : PatientService) { }
+  constructor(private patientService : PatientService , private router : Router) { }
 
   ngOnInit(): void {
+    if(localStorage.getItem('role') == 'admin'){
+      this.router.navigate(['/users']);
+
+    }
     this.getAll();
   }
 

@@ -25,6 +25,7 @@ export class UserService {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
+
   persist(user : User){
     return this.http.post(this.apiUrl, user);
   }

@@ -20,6 +20,10 @@ export class AddUserComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    if(localStorage.getItem('role') != 'admin'){
+      this.router.navigate(['/']);
+
+    }
     this.initForm();
   }
 

@@ -17,6 +17,10 @@ export class ListUserComponent implements OnInit {
 
 
   ngOnInit(): void {
+    if(localStorage.getItem('role') != 'admin'){
+      this.router.navigate(['/']);
+
+    }
     this.getAllUsers();
   }
 
@@ -34,15 +38,32 @@ export class ListUserComponent implements OnInit {
     if(page == null){
       this.userService.getUsers().subscribe((res) => {
         this.users = res ;
-        console.log(res);
       });
     }
     else{
       this.userService.getUsersPage(page).subscribe((res) => {
         this.users = res ;
-        console.log(res);
       });
     }
   }
+
+
+  deleteUser(id , nom){
+
+    if(confirm("Voulez vous vraiment supprimer: "+nom)){
+
+      console.log(id);
+
+      this.userService.delete(id)
+      .subscribe(() => {
+        alert('supprimer');
+        this.router.navigate(['/users']);
+
+      })
+  
+      }
+
+  }
+
 
 }

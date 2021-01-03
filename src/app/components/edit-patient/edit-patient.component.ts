@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-patient',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditPatientComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router : Router) { }
 
   ngOnInit(): void {
+    if(localStorage.getItem('role') == 'admin'){
+      this.router.navigate(['/users']);
+
+    }
   }
 
 }
