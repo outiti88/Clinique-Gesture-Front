@@ -1,10 +1,20 @@
 <div class="container mt-5">
     <h5 class="text-center">Liste des Patients</h5>
 
+    <div class="container row my-12" *ngIf="alertAjout">
+        <div class="alert alert-dismissible alert-success" style="width: 100%;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h4 class="alert-heading">Le patient {{patient.nom}} {{patient.prenom}} à été Bien ajouté !</h4>
+        </div>
+    </div>
+
+    <a (click)="add()" class="btn btn-success mb-5 mx-auto mb-5">Ajouter</a>
+
     <table class="table table-hover">
         <thead>
             <tr class="table-active">
-                <th scope="col">Nom complet</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prenom</th>
                 <th scope="col">Telephone</th>
                 <th scope="col">Adresse</th>
                 <th scope="col">Cin</th>
@@ -14,20 +24,38 @@
             </tr>
         </thead>
         <tbody>
+            <tr *ngIf="formPatient" style="margin: 0; padding:0">
+                <td><input style="margin: 0; padding:0" class="form-control" type="text" [(ngModel)]="patient.nom"></td>
+                <td><input style="margin: 0; padding:0" class="form-control" type="text" [(ngModel)]="patient.prenom"></td>
+                <td><input style="margin: 0; padding:0" class="form-control" type="text" [(ngModel)]="patient.telephone"></td>
+                <td><input style="margin: 0; padding:0" class="form-control" type="text" [(ngModel)]="patient.adresse"></td>
+                <td><input style="margin: 0; padding:0" class="form-control" type="text" [(ngModel)]="patient.cin"></td>
+                <td>
+                    <select class="form-control" [(ngModel)]="patient.user.userID">
+                        <option *ngFor="let medecin of medecins" [value]="medecin.userID">
+                            {{getMedecinByFilter(medecin.userID)}}
+                        </option>
+                    </select>
+                </td>
+
+                <td *ngIf="ajouter" colspan="2"><button (click)="addPatient()" class="btn btn-success">Ajouter</button></td>
+                <td *ngIf="edit" colspan="2"><button (click)="updatePatient()" class="btn btn-warning">Modifier</button></td>
+            </tr>
             <tr *ngFor="let patient of patients">
-                <th scope="row">{{patient.nom}} {{patient.prenom}}</th>
+                <th scope="row">{{patient.nom}}</th>
+                <th>{{patient.prenom}}</th>
                 <td>{{patient.telephone}} </td>
                 <td>{{patient.adresse}} </td>
                 <td>{{patient.cin}} </td>
-                <td>{{patient.user.firstName}} {{patient.user.lastName}} </td>
+                <td>{{getMedecinByFilter(patient.user.userID)}} </td>
 
                 <td>
-                    <a [routerLink]="[patient.patientId]" class="btn btn-warning btn-sm">
+                    <a (click)="editPatient(patient)" class="btn btn-warning btn-sm">
                         <i class="fas fa-edit"></i>
                     </a>
                 </td>
                 <td>
-                    <button class="btn btn-sm btn-dark">
+                    <button class="btn btn-sm btn-dark" (click)="deletePatient(patient.patientId,patient.prenom)">
                     <i class="fas fa-trash"></i>
                 </button>
                 </td>

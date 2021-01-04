@@ -16,7 +16,6 @@ import { JwtInterceptor } from './services/jwt.interceptor';
 import { AddUserComponent } from './components/users/add-user/add-user.component';
 import { ListUserComponent } from './components/users/list-user/list-user.component';
 import { NotAuthorizedComponent } from './components/partials/not-authorized/not-authorized.component';
-import { EditUserComponent } from './components/users/edit-user/edit-user.component';
 
 
 
@@ -60,8 +59,7 @@ const routes: Routes =[
     NotfoundComponent,
     LoginComponent,
     AddUserComponent,
-    ListUserComponent,
-    EditUserComponent
+    ListUserComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
