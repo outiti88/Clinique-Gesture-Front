@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-list-user',
   templateUrl: './list-user.component.html',
   styleUrls: ['./list-user.component.css']
 })
-export class ListUserComponent implements OnInit {
+export class ListUserComponent implements OnInit, OnDestroy {
 
   constructor(
     private userService : UserService, 
@@ -15,16 +16,39 @@ export class ListUserComponent implements OnInit {
     private router : Router
     ) { }
 
+    userAdd : any = null ;
+    edit = false;
+    userEdited = false;
+    
+    userEdit : User =  {
+      userID:	"",
+      firstName: "",
+      lastName: "",
+      email: "",
+      role: {
+        name: ""
+      }
+    } ;
+
+
+    users : any = [] ;
+    user : any = null ;
 
   ngOnInit(): void {
     if(localStorage.getItem('role') != 'admin'){
       this.router.navigate(['/']);
-
     }
+
+    this.userService.currentMsg.subscribe(res => this.userAdd = res);
     this.getAllUsers();
   }
 
-  users : any = [] ;
+  ngOnDestroy(){
+    this.userService.message.next(false);
+
+  }
+
+
 
   paginateTo(page: number) {
     this.router.navigate(['/users', 'page', page]);
@@ -34,7 +58,6 @@ export class ListUserComponent implements OnInit {
   getAllUsers(){
    // this.id= this.route.snapshot.params['id'];
     const page = this.route.snapshot.params['page'];
-    console.log(page);
     if(page == null){
       this.userService.getUsers().subscribe((res) => {
         this.users = res ;
@@ -47,22 +70,39 @@ export class ListUserComponent implements OnInit {
     }
   }
 
+  editUser(user){
+    if(this.userEdit === user) {
+      this.edit = false;
+      this.userEdit = null;
+    } 
+    else{
+      this.userEdit = user;
+      this.edit = true;
+    } 
+    console.log(user);
+  }
+
+  modifier(){
+    this.userService.update(this.userEdit).subscribe(
+      () => {
+        this.edit = false;
+        this.userEdited = true;
+      },
+      (error) => {
+        this.edit = false;
+        console.log("erreur: ", error.error.message)
+      }
+    );
+  }
 
   deleteUser(id , nom){
-
     if(confirm("Voulez vous vraiment supprimer: "+nom)){
-
-      console.log(id);
-
       this.userService.delete(id)
       .subscribe(() => {
+        this.users = this.users.filter(users => users.userID != id);
         alert('supprimer');
-        this.router.navigate(['/users']);
-
-      })
-  
+        });
       }
-
   }
 
 

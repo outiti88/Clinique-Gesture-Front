@@ -1,6 +1,12 @@
-<div class="container">
+<div class="container mt-5">
+    <div *ngIf="alert" class="container row my-12">
+        <div class="alert alert-dismissible alert-danger" style="width: 100%;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h4 class="alert-heading">Ereur: {{message}}</h4>
+        </div>
+    </div>
     <div class="row">
-        <div class="col-md-4 mt-5 mx-auto">
+        <div class="col-md-8 mt-5 mb-5 mx-auto">
             <h5 class="text-center">Ajouter un nouveau Utilisateur</h5>
             <form [formGroup]="addUserForm" (ngSubmit)="addUser()">
 

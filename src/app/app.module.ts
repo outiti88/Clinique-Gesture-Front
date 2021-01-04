@@ -8,7 +8,7 @@ import { ListPatientComponent } from './components/list-patient/list-patient.com
 import { NavbarComponent } from './components/partials/navbar/navbar.component';
 import { NotfoundComponent } from './components/partials/notfound/notfound.component';
 import { LoginComponent } from './components/login/login.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule , FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { AuthGuard } from './guards/auth.guard';
 import { AfterAuthGuard } from './guards/after-auth.guard';
@@ -16,6 +16,7 @@ import { JwtInterceptor } from './services/jwt.interceptor';
 import { AddUserComponent } from './components/users/add-user/add-user.component';
 import { ListUserComponent } from './components/users/list-user/list-user.component';
 import { NotAuthorizedComponent } from './components/partials/not-authorized/not-authorized.component';
+import { EditUserComponent } from './components/users/edit-user/edit-user.component';
 
 
 
@@ -27,6 +28,7 @@ const routes: Routes =[
 
   { path : "users"  , children:[
     { path : "" , component : ListUserComponent},
+    {path : "edit/:id" , component : ListUserComponent },
     {path : "page/:page" , component : ListUserComponent },
     { path : "add" , component : AddUserComponent}
   ] , canActivate:[AuthGuard]} , 
@@ -58,13 +60,15 @@ const routes: Routes =[
     NotfoundComponent,
     LoginComponent,
     AddUserComponent,
-    ListUserComponent
+    ListUserComponent,
+    EditUserComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     {

@@ -12,6 +12,10 @@ import { User } from 'src/app/models/user';
 export class AddUserComponent implements OnInit {
 
   addUserForm : FormGroup ;
+  alert = false ;
+  message = '';
+
+
 
   constructor(
     private formBuilder : FormBuilder ,
@@ -47,7 +51,18 @@ export class AddUserComponent implements OnInit {
 
 
     this.userService.persist(newUser).subscribe(
-      res => console.log(res));
-      this.router.navigateByUrl("/users");
+      res => {
+        this.userService.message.next(newUser.firstName+" "+newUser.lastName);
+        console.log(res);
+        this.router.navigateByUrl("/users");
+      } 
+      ,
+      (error) => {
+        this.userService.message.next(false);
+        this.alert = true;
+        this.message = error.error.message;
+        console.log("erreur: ", error.error.message)
+        
+      });
   }
 }

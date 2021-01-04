@@ -1,6 +1,19 @@
 <div class="container mt-5">
     <h5 class="text-center">Liste des Utilisateurs</h5>
 
+    <div class="container row my-12" *ngIf="userAdd">
+        <div class="alert alert-dismissible alert-success" style="width: 100%;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h4 class="alert-heading">Utilisateur {{userAdd}} à été Bien ajouté !</h4>
+        </div>
+    </div>
+    <div class="container row my-12" *ngIf="userEdited">
+        <div class="alert alert-dismissible alert-warning" style="width: 100%;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h4 class="alert-heading">Utilisateur {{userEdit.firstName}} à été Bien Modifier !</h4>
+        </div>
+    </div>
+
     <table class="table table-hover">
         <thead>
             <tr class="table-active">
@@ -13,6 +26,17 @@
             </tr>
         </thead>
         <tbody>
+            <tr *ngIf="edit">
+                <td><input class="form-control" type="text" [(ngModel)]="userEdit.firstName"></td>
+                <td><input class="form-control" type="text" [(ngModel)]="userEdit.lastName"></td>
+                <td><input class="form-control" type="text" [(ngModel)]="userEdit.email"></td>
+                <td><select class="form-control" [(ngModel)]="userEdit.role.name">
+                    <option value="admin">Administrateur</option>
+                    <option value="gp">Gestion de personnel</option>
+                    <option value="medecin">Medecin</option>
+                </select></td>
+                <td colspan="2"><button (click)="modifier()" class="btn btn-warning">modifier</button></td>
+            </tr>
             <tr *ngFor="let user of users">
                 <th scope="row">{{user.firstName}}</th>
                 <td>{{user.lastName}} </td>
@@ -20,16 +44,17 @@
                 <td>{{user.role.name}} </td>
 
                 <td>
-                    <a [routerLink]="[user.UserId]" class="btn btn-warning btn-sm">
+                    <a [routerLink]="['/users/edit',user.userID]" (click)="editUser(user)" class="btn btn-warning btn-sm">
                         <i class="fas fa-edit"></i>
                     </a>
                 </td>
                 <td>
-                    <button (click)="deleteUser(user.UserId,user.firstName+' '+user.lastName)" class="btn btn-sm btn-dark">
+                    <button (click)="deleteUser(user.userID,user.firstName+' '+user.lastName)" class="btn btn-sm btn-dark">
                     <i class="fas fa-trash"></i>
                 </button>
                 </td>
             </tr>
+
 
         </tbody>
     </table>
