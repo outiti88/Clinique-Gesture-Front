@@ -1,8 +1,57 @@
 <div class="container mt-5 text-xl-center">
     <div class="row mb-5">
-        <h1 class="col-10  ">Liste des Rendez-vous</h1>
-        <a (click)="showForm()" class="btn btn-success">Créer</a>
+        <a (click)="showFilter()" class="btn btn-warning col-2">Filtrer</a>
+        <h1 class="col-8  ">Liste des Rendez-vous</h1>
+        <a (click)="showForm()" class="btn btn-success col-2">Créer</a>
     </div>
+
+    <div class="mx-auto" *ngIf="filterShow" style="
+    border-style: solid;
+    margin-bottom: 15px;
+    border-color: #f0ad4e;
+">
+        <legend>Filter</legend>
+
+        <div class="form-group row mx-auto mt-2">
+            <label for="Patient" class="col-sm-2 col-form-label">Patient</label>
+            <div class="col-sm-4">
+                <select class="form-control" id="Patient" [(ngModel)]="rdvSearch.patient.patientId">
+                    <option selected disabled>Choisissez le patient</option>
+                    <option *ngFor="let patient of patients" [value]="patient.patientId">
+                        {{getPatientName(patient.patientId)}}
+                    </option>
+                </select>
+            </div>
+
+            <label for="etat" class="col-sm-2 col-form-label">Etat</label>
+            <div class="col-sm-4">
+                <select class="form-control" id="etat" [(ngModel)]="rdvSearch.etat">
+                    <option selected disabled>Choisissez l'etat</option>
+                    <option value="fixé">Fixé</option>
+                    <option value="fait">Fait</option>
+                    <option value="annulé">Annulée</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row mx-auto mt-2">
+            <label for="date" class="col-sm-2 col-form-label">Date</label>
+            <div class="col-sm-4">
+                <input type="date" class="form-control" id="date" [(ngModel)]="rdvSearch.date" type="date">
+            </div>
+            <label for="debut" class="col-sm-1 col-form-label">De</label>
+            <div class="col-sm-2">
+                <input type="time" class="form-control" id="debut" [(ngModel)]="rdvSearch.debut">
+            </div>
+            <label for="fin" class="col-sm-1 col-form-label">À</label>
+            <div class="col-sm-2">
+                <input type="time" class="form-control" id="fin" [(ngModel)]="rdvSearch.fin">
+            </div>
+        </div>
+
+        <button class="btn btn-warning" (click)="filter()">Filter</button>
+
+    </div>
+
     <div class="mx-auto" *ngIf="formShow" style="
     border-style: solid;
     margin-bottom: 15px;
@@ -13,7 +62,7 @@
         <div class="form-group row mx-auto mt-2">
             <label for="Patient" class="col-sm-2 col-form-label">Patient</label>
             <div class="col-sm-4">
-                <select class="form-control" id="Patient" [(ngModel)]="patient.patientId">
+                <select class="form-control" id="Patient" [(ngModel)]="rdv.patientId" required>
                     <option selected disabled>Choisissez le patient</option>
                     <option *ngFor="let patient of patients" [value]="patient.patientId">
                         {{getPatientName(patient.patientId)}}
@@ -23,67 +72,36 @@
 
             <label for="Motif" class="col-sm-2 col-form-label">Motif</label>
             <div class="col-sm-4">
-                <input type="text" readonly="" class="form-control" id="Motif" placeholder="Motif du Rendez vous">
+                <input type="text" class="form-control" id="Motif" placeholder="Motif du Rendez vous" [(ngModel)]="rdv.motif" required>
             </div>
         </div>
         <div class="form-group row mx-auto mt-2">
             <label for="date" class="col-sm-2 col-form-label">Date</label>
             <div class="col-sm-4">
-                <input type="date" class="form-control" id="date">
+                <input type="date" class="form-control" id="date" [(ngModel)]="rdv.date" type="date" required>
             </div>
             <label for="debut" class="col-sm-1 col-form-label">De</label>
             <div class="col-sm-2">
-                <input type="time" class="form-control" id="debut">
+                <input type="time" class="form-control" id="debut" [(ngModel)]="rdv.debut" required>
             </div>
             <label for="fin" class="col-sm-1 col-form-label">À</label>
             <div class="col-sm-2">
-                <input type="time" class="form-control" id="fin">
+                <input type="time" class="form-control" id="fin" [(ngModel)]="rdv.fin" required>
             </div>
         </div>
 
+        <button class="btn btn-success" (click)="addRdv()">Créer</button>
+
     </div>
     <div class="row">
-        <div class="card border-info col-4 mb-3 mx-auto" style="max-width: 20rem;">
-            <div class="card-header">Header</div>
+        <div *ngFor="let rdv of rdvs" class="card col-4 mb-3 mx-auto" style="max-width: 20rem;" [ngClass]="{'border-info': rdv.etat == 'fixé', 'border-success': rdv.etat == 'fait', 'border-danger': rdv.etat == 'annulée'}">
+
+            <div class="card-header">{{ rdv.patient.nom }} {{ rdv.patient.prenom }} </div>
             <div class="card-body">
-                <h4 class="card-title">Info card title</h4>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <h4 class="card-title">{{rdv.date}} <br> de {{rdv.debut}} à {{rdv.fin}}</h4>
+                <p class="card-text"> {{rdv.motif}}</p>
             </div>
         </div>
-        <div class="card border-info col-4 mb-3 mx-auto" style="max-width: 20rem;">
-            <div class="card-header">Header</div>
-            <div class="card-body">
-                <h4 class="card-title">Info card title</h4>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-        <div class="card border-info col-4 mb-3 mx-auto" style="max-width: 20rem;">
-            <div class="card-header">Header</div>
-            <div class="card-body">
-                <h4 class="card-title">Info card title</h4>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-        <div class="card border-info col-4 mb-3 mx-auto" style="max-width: 20rem;">
-            <div class="card-header">Header</div>
-            <div class="card-body">
-                <h4 class="card-title">Info card title</h4>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-        <div class="card border-info col-4 mb-3 mx-auto" style="max-width: 20rem;">
-            <div class="card-header">Header</div>
-            <div class="card-body">
-                <h4 class="card-title">Info card title</h4>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
-        <div class="card border-info col-4 mb-3 mx-auto" style="max-width: 20rem;">
-            <div class="card-header">Header</div>
-            <div class="card-body">
-                <h4 class="card-title">Info card title</h4>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            </div>
-        </div>
+
     </div>
 </div>

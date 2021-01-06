@@ -16,6 +16,128 @@
   "profile": {
     "name": "typicode"
   },
+  "rdvs": [
+    {
+      "patientId": "26433331222115103591222647235811331073320918916306157",
+      "motif": "Visite medicial",
+      "date": "2021-01-06",
+      "debut": "05:24",
+      "fin": "06:25",
+      "etat": "fixé",
+      "id": 1
+    },
+    {
+      "patientId": "26433331222115103591222647235811331073320918916306157",
+      "motif": "aaaaaaaaaa",
+      "date": "2021-01-06",
+      "debut": "02:47",
+      "fin": "02:48",
+      "etat": "fixé",
+      "id": 2
+    },
+    {
+      "patientId": "91441224312520453282187129542818132830603139747253",
+      "motif": "rrrrrrrr",
+      "date": "2021-02-05",
+      "debut": "07:44",
+      "fin": "02:48",
+      "etat": "fixé",
+      "id": 3
+    }
+  ],
+  "rdvResponse": [
+    {
+      "motif": "Visite medicial",
+      "date": "2021-01-06",
+      "debut": "05:24",
+      "fin": "06:25",
+      "etat": "annulée",
+      "id": 4,
+      "patient": {
+        "patientId": "26433331222115103591222647235811331073320918916306157",
+        "nom": "ayoub",
+        "prenom": "outiti"
+      }
+    },
+    {
+      "motif": "Control",
+      "date": "2021-01-07",
+      "debut": "05:24",
+      "fin": "06:25",
+      "etat": "fixé",
+      "id": 3,
+      "patient": {
+        "patientId": "26433331222115103591222647235811331073320918916306157",
+        "nom": "karim",
+        "prenom": "ahmadi"
+      }
+    },
+    {
+      "motif": "Visite medicial",
+      "date": "2021-01-08",
+      "debut": "05:24",
+      "fin": "06:25",
+      "etat": "fait",
+      "id": 1,
+      "patient": {
+        "patientId": "26433331222115103591222647235811331073320918916306157",
+        "nom": "khalid",
+        "prenom": "taki"
+      }
+    },
+    {
+      "motif": "test ajout",
+      "date": "2021-01-07",
+      "debut": "14:42",
+      "fin": "15:42",
+      "etat": "fixé",
+      "patient": {
+        "patientId": "35444810544283949522744333355412646120611131473515921436",
+        "nom": "hamza",
+        "prenom": "layachi"
+      },
+      "id": 2
+    },
+    {
+      "motif": "tes json",
+      "date": "2021-01-01",
+      "debut": "14:52",
+      "fin": "14:52",
+      "etat": "fixé",
+      "patient": {
+        "patientId": "521192524495648851182902933384019165439465232195237311824",
+        "nom": "test",
+        "prenom": "patient"
+      },
+      "id": 5
+    },
+    {
+      "motif": "eeeee",
+      "date": "2021-01-22",
+      "debut": "20:47",
+      "fin": "20:47",
+      "etat": "fixé",
+      "patient": {
+        "patientId": "26433331222115103591222647235811331073320918916306157",
+        "nom": "ayoub",
+        "prenom": "outiti"
+      },
+      "id": 6
+    },
+    {
+      "motif": "fukfdycj",
+      "date": "2021-01-07",
+      "debut": "16:22",
+      "fin": "20:17",
+      "etat": "fixé",
+      "patient": {
+        "patientId": "26433331222115103591222647235811331073320918916306157",
+        "nom": "ayoub",
+        "prenom": "outiti"
+      },
+      "id": 7
+    }
+  ],
   "medecins": [
     {
       "email": "medecin@gmail.com",

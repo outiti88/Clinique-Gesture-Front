@@ -17,7 +17,6 @@ import { AddUserComponent } from './components/users/add-user/add-user.component
 import { ListUserComponent } from './components/users/list-user/list-user.component';
 import { NotAuthorizedComponent } from './components/partials/not-authorized/not-authorized.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AddRdvComponent } from './components/rdv/add-rdv/add-rdv.component';
 import { ListRdvComponent } from './components/rdv/list-rdv/list-rdv.component';
 
 
@@ -41,8 +40,7 @@ const routes: Routes =[
     { path : "add" , component : AddPatientComponent}
   ] , canActivate:[AuthGuard]} , 
   { path : "RDV"  , children:[
-    { path : "" , component : ListRdvComponent},
-    { path : "add" , component : AddRdvComponent}
+    { path : "" , component : ListRdvComponent}
   ] , canActivate:[AuthGuard]} , 
   {
     path : "login" , component : LoginComponent , canActivate:[AfterAuthGuard]
@@ -67,7 +65,6 @@ const routes: Routes =[
     LoginComponent,
     AddUserComponent,
     ListUserComponent,
-    AddRdvComponent,
     ListRdvComponent
   ],
   imports: [
