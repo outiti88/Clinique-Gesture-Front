@@ -18,19 +18,19 @@
                 <th scope="col">Telephone</th>
                 <th scope="col">Adresse</th>
                 <th scope="col">Cin</th>
-                <th scope="col">Medecin</th>
+                <th *ngIf="role != 'medecin'" scope="col">Medecin</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngIf="formPatient" style="margin: 0; padding:0">
-                <td><input style="margin: 0; padding:0" class="form-control" type="text" [(ngModel)]="patient.nom"></td>
-                <td><input style="margin: 0; padding:0" class="form-control" type="text" [(ngModel)]="patient.prenom"></td>
-                <td><input style="margin: 0; padding:0" class="form-control" type="text" [(ngModel)]="patient.telephone"></td>
-                <td><input style="margin: 0; padding:0" class="form-control" type="text" [(ngModel)]="patient.adresse"></td>
-                <td><input style="margin: 0; padding:0" class="form-control" type="text" [(ngModel)]="patient.cin"></td>
-                <td>
+                <td><input style="margin: 0; padding:0" class="form-control" type="text" [(ngModel)]="patient.nom" required></td>
+                <td><input style="margin: 0; padding:0" class="form-control" type="text" [(ngModel)]="patient.prenom" required></td>
+                <td><input style="margin: 0; padding:0" class="form-control" type="text" [(ngModel)]="patient.telephone" required></td>
+                <td><input style="margin: 0; padding:0" class="form-control" type="text" [(ngModel)]="patient.adresse" required></td>
+                <td><input style="margin: 0; padding:0" class="form-control" type="text" [(ngModel)]="patient.cin" required></td>
+                <td *ngIf="role != 'medecin'">
                     <select class="form-control" [(ngModel)]="patient.user.userID">
                         <option *ngFor="let medecin of medecins" [value]="medecin.userID">
                             {{getMedecinByFilter(medecin.userID)}}
@@ -47,7 +47,7 @@
                 <td>{{patient.telephone}} </td>
                 <td>{{patient.adresse}} </td>
                 <td>{{patient.cin}} </td>
-                <td>{{getMedecinByFilter(patient.user.userID)}} </td>
+                <td *ngIf="role != 'medecin'">{{getMedecinByFilter(patient.user.userID)}} </td>
 
                 <td>
                     <a (click)="editPatient(patient)" class="btn btn-warning btn-sm">

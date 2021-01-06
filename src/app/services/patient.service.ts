@@ -18,7 +18,9 @@ export class PatientService {
   }
 
   persist(patient : Patient){
-    return this.http.post('http://localhost:8085/patients', patient);
+    //return this.http.post('http://localhost:8085/patients', patient);
+    return this.http.post('http://localhost:3000/patients', patient);
+
   }
 
   delete(id){

@@ -30,12 +30,15 @@ export class UserService {
   }
 
   update(user : User){
-    console.log("Service: "+user.email);
     return this.http.put(`${this.apiUrl}/${user.userID}` , user);
   }
 
   persist(user : User){
     return this.http.post(this.apiUrl, user);
+  }
+
+  getMedecins(){
+    return this.http.get("http://localhost:3000/medecins");
   }
 
 }

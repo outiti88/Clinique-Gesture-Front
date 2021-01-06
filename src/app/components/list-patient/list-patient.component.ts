@@ -12,7 +12,6 @@ import { UserService } from 'src/app/services/user.service';
 export class ListPatientComponent implements OnInit {
 
   
-
   constructor( private userService : UserService,
     private patientService : PatientService , private router : Router) { }
 
@@ -20,16 +19,20 @@ export class ListPatientComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if(localStorage.getItem('role') != 'admin'){
-      this.router.navigate(['/']);
+    if(localStorage.getItem('role') == 'admin'){
+      this.router.navigate(['/users']);
     }
 
+    if(localStorage.getItem('role') != 'medecin'){
+      this.getMedecins();
+    }
     
-    this.getMedecins();
 
     this.getAll();
 
   }
+
+  role = localStorage.getItem('role') ;
 
   medecins : any = [] ;
 
@@ -59,7 +62,7 @@ export class ListPatientComponent implements OnInit {
 
 
   getMedecins(){
-    this.userService.getUsers().subscribe((res) => {
+    this.userService.getMedecins().subscribe((res) => {
       this.medecins = res ;
     });
   }
@@ -82,9 +85,9 @@ export class ListPatientComponent implements OnInit {
       adresse : this.patient.adresse ,
       telephone : this.patient.telephone ,
       cin : this.patient.cin ,
-      medecin_id : this.patient.user.userID
+      medecin_id : (this.role != 'medecin') ? this.patient.user.userID : localStorage.getItem('id')
     }
-    console.log(patientPersist);
+    //console.log(patientPersist);
 
     this.patientService.persist(patientPersist).subscribe(
 

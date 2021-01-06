@@ -16,6 +16,9 @@ import { JwtInterceptor } from './services/jwt.interceptor';
 import { AddUserComponent } from './components/users/add-user/add-user.component';
 import { ListUserComponent } from './components/users/list-user/list-user.component';
 import { NotAuthorizedComponent } from './components/partials/not-authorized/not-authorized.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AddRdvComponent } from './components/rdv/add-rdv/add-rdv.component';
+import { ListRdvComponent } from './components/rdv/list-rdv/list-rdv.component';
 
 
 
@@ -36,6 +39,10 @@ const routes: Routes =[
     { path : "" , component : ListPatientComponent},
     { path : ":id/edit " , component : EditPatientComponent},
     { path : "add" , component : AddPatientComponent}
+  ] , canActivate:[AuthGuard]} , 
+  { path : "RDV"  , children:[
+    { path : "" , component : ListRdvComponent},
+    { path : "add" , component : AddRdvComponent}
   ] , canActivate:[AuthGuard]} , 
   {
     path : "login" , component : LoginComponent , canActivate:[AfterAuthGuard]
@@ -59,14 +66,17 @@ const routes: Routes =[
     NotfoundComponent,
     LoginComponent,
     AddUserComponent,
-    ListUserComponent
+    ListUserComponent,
+    AddRdvComponent,
+    ListRdvComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {

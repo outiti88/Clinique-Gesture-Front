@@ -60,6 +60,7 @@ export class ListUserComponent implements OnInit, OnDestroy {
     const page = this.route.snapshot.params['page'];
     if(page == null){
       this.userService.getUsers().subscribe((res) => {
+        console.log(res);
         this.users = res ;
       });
     }
