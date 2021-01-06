@@ -9,7 +9,8 @@ export class RdvService {
 
   constructor(private http : HttpClient) { }
 
-  apiUrl = 'http://localhost:3000/rdvResponse' ;
+  apiUrl = 'http://localhost:3000/rdvResponse?'
+  filtetUrl = this.apiUrl ;
 
   getRdvs(){
     return this.http.get(this.apiUrl);
@@ -24,7 +25,10 @@ export class RdvService {
   }
 
   filter(rdv){
-    return this.http.get(`${this.apiUrl}?date=${rdv.date}&patient.patientId=${rdv.patient.patientId}`);
+    console.log("service: "+rdv.patient.patientId.length)
+    if(rdv.date.length>0) this.filtetUrl += "&date="+rdv.date;
+    else if(rdv.patient.patientId.length>0) this.filtetUrl += "&patient.patientId="+rdv.patient.patientId;
+    return this.http.get(this.filtetUrl );
   }
 
 

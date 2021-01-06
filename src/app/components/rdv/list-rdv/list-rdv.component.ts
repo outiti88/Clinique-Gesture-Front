@@ -131,6 +131,18 @@ export class ListRdvComponent implements OnInit {
     this.formShow = !this.formShow;
   }
   showFilter(){
+    this.rdvSearch = {
+      motif  : "",
+        date   :"",
+       debut  : "",
+        fin  : "",
+        etat  :"",
+        patient : {
+          patientId : "",
+          nom : "",
+          prenom : "" ,
+        }
+  }
     this.getAllRdv();
     this.formShow=false;
     this.filterShow = !this.filterShow;
