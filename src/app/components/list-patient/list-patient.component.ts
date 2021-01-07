@@ -59,6 +59,7 @@ export class ListPatientComponent implements OnInit {
   ajouter = false;
   edit = false;
   alertAjout = false;
+  alertEdit = false;
 
 
   getMedecins(){
@@ -106,7 +107,7 @@ export class ListPatientComponent implements OnInit {
   
   updatePatient(){
     this.formPatient = false;
-    this.alertAjout = true;
+    this.alertEdit = true;
     console.log(this.patient);
   }
 

@@ -29,7 +29,7 @@
                     <option selected disabled>Choisissez l'etat</option>
                     <option value="fixé">Fixé</option>
                     <option value="fait">Fait</option>
-                    <option value="annulé">Annulée</option>
+                    <option value="annulé">Annulé</option>
                 </select>
             </div>
         </div>
@@ -94,7 +94,7 @@
 
     </div>
     <div class="row">
-        <div *ngFor="let rdv of rdvs" class="card col-4 mb-3 mx-auto" style="max-width: 20rem;" [ngClass]="{'border-info': rdv.etat == 'fixé', 'border-success': rdv.etat == 'fait', 'border-danger': rdv.etat == 'annulée'}">
+        <div *ngFor="let rdv of rdvs" class="card col-4 mb-3 mx-auto" style="max-width: 20rem;" [ngClass]="{'border-info': rdv.etat == 'fixé', 'border-success': rdv.etat == 'fait', 'border-danger': rdv.etat == 'annulé'}">
 
             <div class="card-header">{{ rdv.patient.nom }} {{ rdv.patient.prenom }} </div>
             <div class="card-body">

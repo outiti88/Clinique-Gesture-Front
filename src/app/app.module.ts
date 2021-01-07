@@ -18,6 +18,8 @@ import { ListUserComponent } from './components/users/list-user/list-user.compon
 import { NotAuthorizedComponent } from './components/partials/not-authorized/not-authorized.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ListRdvComponent } from './components/rdv/list-rdv/list-rdv.component';
+import { ListScannersComponent } from './components/scanners/list-scanners/list-scanners.component';
+import { ListMedicamentsComponent } from './components/medicaments/list-medicaments/list-medicaments.component';
 
 
 
@@ -39,9 +41,19 @@ const routes: Routes =[
     { path : ":id/edit " , component : EditPatientComponent},
     { path : "add" , component : AddPatientComponent}
   ] , canActivate:[AuthGuard]} , 
+
   { path : "RDV"  , children:[
     { path : "" , component : ListRdvComponent}
   ] , canActivate:[AuthGuard]} , 
+
+  { path : "medicaments"  , children:[
+    { path : "" , component : ListMedicamentsComponent}
+  ] , canActivate:[AuthGuard]} , 
+
+  { path : "scanners"  , children:[
+    { path : "" , component : ListScannersComponent}
+  ] , canActivate:[AuthGuard]} , 
+
   {
     path : "login" , component : LoginComponent , canActivate:[AfterAuthGuard]
   } ,
@@ -65,7 +77,9 @@ const routes: Routes =[
     LoginComponent,
     AddUserComponent,
     ListUserComponent,
-    ListRdvComponent
+    ListRdvComponent,
+    ListScannersComponent,
+    ListMedicamentsComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

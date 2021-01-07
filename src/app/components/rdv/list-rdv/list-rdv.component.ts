@@ -21,11 +21,25 @@ export class ListRdvComponent implements OnInit {
     }
 
   ngOnInit(): void {
+
+    if(localStorage.getItem('role') == 'admin'){
+      this.router.navigate(['/users']);
+    }
+
+    if(localStorage.getItem('role') == 'gp'){
+      this.getAllRdv();
+    }
+
+    if(localStorage.getItem('role') == 'medecin'){
+      this.getRdvMedecin(localStorage.getItem('id'));
+    }
     this.getAllPatients();
-
-    this.getAllRdv();
-
   }
+
+  role = localStorage.getItem('role') ;
+  id = localStorage.getItem('role');
+ 
+
   
   patient : Patient =  {
     patientId:	"",
@@ -147,9 +161,16 @@ export class ListRdvComponent implements OnInit {
     this.formShow=false;
     this.filterShow = !this.filterShow;
   }
+
   filter(){
     this.rdvService.filter(this.rdvSearch).subscribe((res) => {
       console.log(res);
+      this.rdvs=res;
+    })
+  }
+
+  getRdvMedecin(id){
+    this.rdvService.getRdvMedecin(id).subscribe((res) => {
       this.rdvs=res;
     })
   }

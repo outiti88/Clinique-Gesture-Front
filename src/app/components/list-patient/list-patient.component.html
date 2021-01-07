@@ -8,6 +8,13 @@
         </div>
     </div>
 
+    <div class="container row my-12" *ngIf="alertEdit">
+        <div class="alert alert-dismissible alert-warning" style="width: 100%;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h4 class="alert-heading">Le patient {{patient.nom}} {{patient.prenom}} à été Bien Modifié !</h4>
+        </div>
+    </div>
+
     <a (click)="add()" class="btn btn-success mb-5 mx-auto mb-5">Ajouter</a>
 
     <table class="table table-hover">
