@@ -1,9 +1,41 @@
 <div class="container mt-5 text-xl-center">
 
     <div class="row mb-5">
-        <a class="btn btn-warning col-2">Filter</a>
         <h1 class="col-8">Liste Des Scanners</h1>
-        <a class="btn btn-success col-2">Ajouter</a>
+        <a (click)="ajouterScanner()" class="btn btn-success col-2">Ajouter</a>
+    </div>
+
+    <div class="mx-auto" *ngIf="formShow" style="
+    margin-bottom: 15px;
+    ">
+        <legend *ngIf="ajoutScanner">Ajouter un nouveau Scanner</legend>
+        <legend *ngIf="editScanner">Modifier Scanner </legend>
+
+        <div class="form-group row mx-auto mt-2">
+            <label for="type" class="col-sm-2 col-form-label">Type</label>
+            <div class="col-sm-4">
+                <input placeholder="Type de scanner" type="text" id="type" class="form-control" [(ngModel)]="scanner.type" required>
+            </div>
+            <label for="price" class="col-sm-2 col-form-label">prix</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="price" placeholder="Prix du scanner (MAD)" [(ngModel)]="scanner.price" required>
+            </div>
+
+
+        </div>
+
+        <button *ngIf="editScanner" class="btn btn-warning align-cen" (click)="edit(scanner)">Modifier</button>
+        <button *ngIf="ajoutScanner" class="btn btn-success align-cen" (click)="addScanner()">Ajouter</button>
+
+    </div>
+
+    <div class="row">
+        <ul class="list-group col-6 mt-5" *ngFor="let scanner of scanners">
+            <li (click)="modifier(scanner)" class="list-group-item d-flex justify-content-between align-items-center">
+                <span (click)="delete(scanner)" class="badge badge-primary badge-pill" style="cursor: pointer;">x</span> <b>{{scanner.type}}</b>
+                <span class="badge badge-primary badge-pill">{{scanner.price}} MAD</span>
+            </li>
+        </ul>
     </div>
 
 </div>

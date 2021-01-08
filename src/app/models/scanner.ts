@@ -1,7 +1,7 @@
 export class Scanner{
 
     scannerId ?: string = "";
-    price : string  = "";
+    price : number  =  0;
 	type : string  = "";
 
 }

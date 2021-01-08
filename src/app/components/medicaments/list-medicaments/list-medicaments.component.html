@@ -7,10 +7,10 @@
 
 
     <div class="mx-auto" *ngIf="formShow" style="
-margin-bottom: 15px;
-">
+        margin-bottom: 15px;
+        ">
         <legend *ngIf="ajoutMedicament">Ajouter un nouveau médicament</legend>
-        <legend *ngIf="editMedicament">Modifier un nouveau médicament</legend>
+        <legend *ngIf="editMedicament">Modifier médicament</legend>
 
         <div class="form-group row mx-auto mt-2">
             <label for="libelle" class="col-sm-1 col-form-label">Libelle</label>
@@ -78,10 +78,10 @@ margin-bottom: 15px;
             </li>
         </ul>
         <ul class="list-group col-4 mt-5">
-            <h3 class="text-secondary">Neurologie</h3>
+            <h3 class="text-info">Neurologie</h3>
             <li (click)="modifier(medi)" class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let medi of neurologie">
                 <span (click)="delete(medi)" class="badge badge-primary badge-pill" style="cursor: pointer;">x</span><b>{{medi.name}}</b>({{medi.type}})
-                <span class="badge badge-secondary badge-pill">{{medi.price}} MAD</span>
+                <span class="badge badge-info badge-pill">{{medi.price}} MAD</span>
             </li>
         </ul>
     </div>

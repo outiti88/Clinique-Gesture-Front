@@ -1,17 +1,32 @@
 {
-  "posts": [
+  "scanners": [
     {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "type": "SCANNER ABDOMINO PELVIEN",
+      "price": "455",
+      "id": 1
+    },
+    {
+      "type": "ANGIOSCANNER",
+      "price": "540",
+      "id": 2
+    },
+    {
+      "type": "SCANNER DES SINUS",
+      "price": "380",
+      "id": 3
+    },
+    {
+      "type": "SCANNER CÉRÉBRAL",
+      "price": "480",
+      "id": 4
     }
   ],
   "medicamentsAdd": [
     {
       "name": "Rhumix",
-      "price": "20",
+      "price": "200",
       "categorie": "rhumatologie",
-      "type": "GÉLULE",
+      "type": "COMPRIMÉ",
       "id": 1
     },
     {
@@ -20,13 +35,6 @@
       "categorie": "pediatrie",
       "type": "LIQUIDES",
       "id": 2
-    },
-    {
-      "name": "Medi 2",
-      "price": "300",
-      "categorie": "cardiologie",
-      "type": "DERMIQUES",
-      "id": 3
     },
     {
       "name": "test",
@@ -38,13 +46,13 @@
     {
       "name": "supradine",
       "price": "150",
-      "categorie": "rhumatologie",
+      "categorie": "cardiologie",
       "type": "GÉLULE",
       "id": 6
     },
     {
       "name": "medica3",
-      "price": "220",
+      "price": "225",
       "categorie": "orthopedie",
       "type": "LIQUIDES",
       "id": 7
