@@ -1,9 +1,88 @@
 <div class="container mt-5 text-xl-center">
 
     <div class="row mb-5">
-        <a class="btn btn-warning col-2">Filter</a>
         <h1 class="col-8">Liste Des Medicaments</h1>
-        <a class="btn btn-success col-2">Ajouter</a>
+        <a (click)="ajouterMedicament()" class="btn btn-success col-2">Ajouter</a>
     </div>
 
+
+    <div class="mx-auto" *ngIf="formShow" style="
+margin-bottom: 15px;
+">
+        <legend *ngIf="ajoutMedicament">Ajouter un nouveau médicament</legend>
+        <legend *ngIf="editMedicament">Modifier un nouveau médicament</legend>
+
+        <div class="form-group row mx-auto mt-2">
+            <label for="libelle" class="col-sm-1 col-form-label">Libelle</label>
+            <div class="col-sm-2">
+                <input placeholder="Libelle du medicament" type="text" id="libelle" class="form-control" [(ngModel)]="medicament.name" required>
+            </div>
+            <label for="price" class="col-sm-1 col-form-label">prix</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="price" placeholder="Prix du medicament (MAD)" [(ngModel)]="medicament.price" required>
+            </div>
+            <label for="type" class="col-sm-1 col-form-label">Type</label>
+            <div class="col-sm-2">
+                <select class="form-control" id="type" [(ngModel)]="medicament.type" required>
+                <option value="COMPRIMÉ">COMPRIMÉ</option>
+                <option value="GÉLULE">GÉLULE</option>
+                <option value="LIQUIDES">LIQUIDES</option>
+                <option value="DERMIQUES">DERMIQUES</option>
+                <option value="TRANSDERMIQUES">TRANSDERMIQUES</option>
+            </select>
+            </div>
+            <label for="categorie" class="col-sm-1 col-form-label">Categorie</label>
+            <div class="col-sm-2">
+                <select class="form-control" id="categorie" [(ngModel)]="medicament.categorie" required>
+                <option value="rhumatologie">Rhumatologie</option>
+                <option value="pediatrie">Pédiatrie</option>
+                <option value="neurologie">Neurologie</option>
+                <option value="cardiologie">Cardiologie</option>
+                <option value="orthopedie">Orthopedie</option>
+            </select>
+            </div>
+
+        </div>
+
+        <button *ngIf="editMedicament" class="btn btn-warning align-cen" (click)="edit(medicament)">Modifier</button>
+        <button *ngIf="ajoutMedicament" class="btn btn-success align-cen" (click)="addMedicament()">Ajouter</button>
+
+    </div>
+    <div class="row">
+        <ul class="list-group col-4 mt-5">
+            <h3 class="text-success">Rhumatologie</h3>
+            <li (click)="modifier(medi)" class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let medi of rhumatologie">
+                <span (click)="delete(medi)" class="badge badge-primary badge-pill" style="cursor: pointer;">x</span> <b>{{medi.name}}</b>({{medi.type}})
+                <span class="badge badge-success badge-pill">{{medi.price}} MAD</span>
+            </li>
+        </ul>
+        <ul class="list-group col-4 mt-5">
+            <h3 class="text-primary">Orthopedie</h3>
+            <li (click)="modifier(medi)" class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let medi of orthopedie">
+                <span (click)="delete(medi)" class="badge badge-primary badge-pill" style="cursor: pointer;">x</span><b>{{medi.name}}</b>({{medi.type}})
+                <span class="badge badge-primary badge-pill">{{medi.price}} MAD</span>
+            </li>
+        </ul>
+        <ul class="list-group col-4 mt-5">
+            <h3 class="text-warning">Cardiologie</h3>
+            <li (click)="modifier(medi)" class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let medi of cardiologie">
+                <span (click)="delete(medi)" class="badge badge-primary badge-pill" style="cursor: pointer;">x</span><b>{{medi.name}}</b>({{medi.type}})
+                <span class="badge badge-warning badge-pill">{{medi.price}} MAD</span>
+            </li>
+        </ul>
+        <ul class="list-group col-4 mt-5">
+            <h3 class="text-danger">Pédiatrie</h3>
+            <li (click)="modifier(medi)" class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let medi of pediatrie">
+                <span (click)="delete(medi)" class="badge badge-primary badge-pill" style="cursor: pointer;">x</span><b>{{medi.name}}</b>({{medi.type}})
+                <span class="badge badge-danger badge-pill">{{medi.price}} MAD</span>
+            </li>
+        </ul>
+        <ul class="list-group col-4 mt-5">
+            <h3 class="text-secondary">Neurologie</h3>
+            <li (click)="modifier(medi)" class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let medi of neurologie">
+                <span (click)="delete(medi)" class="badge badge-primary badge-pill" style="cursor: pointer;">x</span><b>{{medi.name}}</b>({{medi.type}})
+                <span class="badge badge-secondary badge-pill">{{medi.price}} MAD</span>
+            </li>
+        </ul>
+    </div>
 </div>

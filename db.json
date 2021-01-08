@@ -6,45 +6,54 @@
       "author": "typicode"
     }
   ],
-  "comments": [
+  "medicamentsAdd": [
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "name": "Rhumix",
+      "price": "20",
+      "categorie": "rhumatologie",
+      "type": "GÉLULE",
+      "id": 1
+    },
+    {
+      "name": "Medi 1",
+      "price": "120",
+      "categorie": "pediatrie",
+      "type": "LIQUIDES",
+      "id": 2
+    },
+    {
+      "name": "Medi 2",
+      "price": "300",
+      "categorie": "cardiologie",
+      "type": "DERMIQUES",
+      "id": 3
+    },
+    {
+      "name": "test",
+      "price": "200",
+      "categorie": "neurologie",
+      "type": "LIQUIDES",
+      "id": 5
+    },
+    {
+      "name": "supradine",
+      "price": "150",
+      "categorie": "rhumatologie",
+      "type": "GÉLULE",
+      "id": 6
+    },
+    {
+      "name": "medica3",
+      "price": "220",
+      "categorie": "orthopedie",
+      "type": "LIQUIDES",
+      "id": 7
     }
   ],
   "profile": {
     "name": "typicode"
   },
-  "rdvs": [
-    {
-      "patientId": "26433331222115103591222647235811331073320918916306157",
-      "motif": "Visite medicial",
-      "date": "2021-01-06",
-      "debut": "05:24",
-      "fin": "06:25",
-      "etat": "fixé",
-      "id": 1
-    },
-    {
-      "patientId": "26433331222115103591222647235811331073320918916306157",
-      "motif": "aaaaaaaaaa",
-      "date": "2021-01-06",
-      "debut": "02:47",
-      "fin": "02:48",
-      "etat": "fixé",
-      "id": 2
-    },
-    {
-      "patientId": "91441224312520453282187129542818132830603139747253",
-      "motif": "rrrrrrrr",
-      "date": "2021-02-05",
-      "debut": "07:44",
-      "fin": "02:48",
-      "etat": "fixé",
-      "id": 3
-    }
-  ],
+  "rdvs": [],
   "rdvResponse": [
     {
       "motif": "Visite medicial",

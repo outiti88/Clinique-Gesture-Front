@@ -32,6 +32,8 @@ export class ListPatientComponent implements OnInit {
 
   }
 
+  chargement = true;
+
   role = localStorage.getItem('role') ;
 
   medecins : any = [] ;
@@ -74,7 +76,9 @@ export class ListPatientComponent implements OnInit {
   }
 
   getAll(){
+    this.chargement = true;
      this.patientService.getAllPatients().subscribe((res) => {
+       this.chargement = false;
        this.patients = res ;
      });
   }
@@ -120,7 +124,6 @@ export class ListPatientComponent implements OnInit {
           });*/
           this.patients = this.patients.filter(patient => patient.patientId != id);
         }
-
   }
 
   add() {
