@@ -96,7 +96,15 @@
     <div class="row">
         <div *ngFor="let rdv of rdvs" class="card col-4 mb-3 mx-auto" style="max-width: 20rem;" [ngClass]="{'border-info': rdv.etat == 'fixé', 'border-success': rdv.etat == 'fait', 'border-danger': rdv.etat == 'annulé'}">
 
-            <div class="card-header">{{ rdv.patient.nom }} {{ rdv.patient.prenom }} </div>
+            <div class="card-header">
+                <span *ngIf="rdv.etat == 'fait'" class="badge badge-success badge-pill float-left">Traité</span>
+                <span *ngIf="rdv.etat == 'annulé'" class="badge badge-danger badge-pill float-left">Annulé</span>
+                <span (click)="annulerRdv(rdv)" *ngIf="rdv.etat == 'fixé'" class="badge badge-danger badge-pill float-left" style="cursor: pointer;">x</span> {{ rdv.patient.nom }} {{ rdv.patient.prenom }}
+                <span *ngIf="rdv.etat == 'fixé'" class="badge badge-info badge-pill float-right" style="cursor: pointer;">
+                    <i class="fas fa-notes-medical"></i>
+                </span>
+
+            </div>
             <div class="card-body">
                 <h4 class="card-title">{{rdv.date}} <br> de {{rdv.debut}} à {{rdv.fin}}</h4>
                 <p class="card-text"> {{rdv.motif}}</p>

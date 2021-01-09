@@ -9,7 +9,7 @@ export class RdvService {
 
   constructor(private http : HttpClient) { }
 
-  apiUrl = 'http://localhost:3000/rdvResponse?'
+  apiUrl = 'http://localhost:3000/rdvResponse'
 
   getRdvs(){
     return this.http.get(this.apiUrl);
@@ -37,6 +37,10 @@ export class RdvService {
 
   getRdvMedecin(id){
     return this.http.get(this.apiUrl );
+  }
+
+  annuler(rdv){
+    return this.http.put(`${this.apiUrl}/${rdv.id}`,rdv);
   }
 
 

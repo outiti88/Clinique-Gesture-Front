@@ -188,4 +188,20 @@ export class ListRdvComponent implements OnInit {
   return patient.nom + " " + patient.prenom;
 }
 
+annulerRdv(rdv){
+  if(confirm("Voulez vous vraiment annuler ce Rendez vous ?")){
+    rdv.etat = "annulé";
+    this.rdvService.annuler(rdv).subscribe(
+    res => {
+      console.log(res);
+    }
+  )
+  }
+}
+
+traiter(rdv){
+
+}
+
+
 }
