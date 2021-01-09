@@ -20,6 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ListRdvComponent } from './components/rdv/list-rdv/list-rdv.component';
 import { ListScannersComponent } from './components/scanners/list-scanners/list-scanners.component';
 import { ListMedicamentsComponent } from './components/medicaments/list-medicaments/list-medicaments.component';
+import { ListSoinsComponent } from './components/soins/list-soins/list-soins.component';
 
 
 
@@ -44,6 +45,10 @@ const routes: Routes =[
 
   { path : "RDV"  , children:[
     { path : "" , component : ListRdvComponent}
+  ] , canActivate:[AuthGuard]} , 
+
+   { path : "Soins"  , children:[
+    { path : "" , component : ListSoinsComponent}
   ] , canActivate:[AuthGuard]} , 
 
   { path : "medicaments"  , children:[
@@ -79,7 +84,8 @@ const routes: Routes =[
     ListUserComponent,
     ListRdvComponent,
     ListScannersComponent,
-    ListMedicamentsComponent
+    ListMedicamentsComponent,
+    ListSoinsComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

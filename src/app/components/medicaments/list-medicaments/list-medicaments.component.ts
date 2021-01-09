@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MedicamentService } from 'src/app/services/medicament.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-medicaments',
@@ -8,9 +9,12 @@ import { MedicamentService } from 'src/app/services/medicament.service';
 })
 export class ListMedicamentsComponent implements OnInit {
 
-  constructor(private medicamentService : MedicamentService) { }
+  constructor(private medicamentService : MedicamentService , private router : Router) { }
 
   ngOnInit(): void {
+    if(localStorage.getItem('role') != 'gp'){
+      this.router.navigate(['/']);
+    }
     this.getAll();
   }
 

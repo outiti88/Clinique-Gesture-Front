@@ -1,0 +1,42 @@
+<div class="container mt-5 text-xl-center">
+
+    <div class="row mb-5">
+        <h1 class="col-8">Liste Des Soins</h1>
+        <a (click)="ajouterSoin()" class="btn btn-success col-2">Ajouter</a>
+    </div>
+
+
+    <div class="mx-auto" *ngIf="formShow" style="
+        margin-bottom: 15px;
+        ">
+        <legend *ngIf="ajoutSoin">Ajouter un nouveau soin</legend>
+        <legend *ngIf="editSoin">Modifier Le Soin</legend>
+
+        <div class="form-group row mx-auto mt-2">
+            <label for="type" class="col-sm-2 col-form-label">Type de soin</label>
+            <div class="col-sm-4">
+                <input placeholder="Type de soin" type="text" id="type" class="form-control" [(ngModel)]="soin.type" required>
+            </div>
+            <label for="price" class="col-sm-2 col-form-label">prix</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" id="price" placeholder="Prix du soin (MAD)" [(ngModel)]="soin.price" required>
+            </div>
+
+        </div>
+
+
+        <button *ngIf="editSoin" class="btn btn-warning align-cen" (click)="edit(soin)">Modifier</button>
+        <button *ngIf="ajoutSoin" class="btn btn-success align-cen" (click)="addSoin()">Ajouter</button>
+
+    </div>
+    <div class="row">
+        <ul class="list-group col-4 mt-5" *ngFor="let soin of soins">
+            <li (click)="modifier(soin)" class="list-group-item d-flex justify-content-between align-items-center">
+                <span (click)="delete(soin)" class="badge badge-primary badge-pill" style="cursor: pointer;">x</span> <b>{{soin.type}}</b>
+                <span class="badge badge-success badge-pill">{{soin.price}} MAD</span>
+            </li>
+        </ul>
+
+
+    </div>
+</div>

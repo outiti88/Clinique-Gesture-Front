@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ScannerService } from 'src/app/services/scanner.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-scanners',
@@ -8,9 +9,12 @@ import { ScannerService } from 'src/app/services/scanner.service';
 })
 export class ListScannersComponent implements OnInit {
 
-  constructor(private scannerService : ScannerService) { }
+  constructor(private scannerService : ScannerService , private router : Router) { }
 
   ngOnInit(): void {
+    if(localStorage.getItem('role') != 'gp'){
+      this.router.navigate(['/']);
+    }
     this.getAll();
   }
 
