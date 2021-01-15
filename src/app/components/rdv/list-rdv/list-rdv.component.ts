@@ -57,6 +57,17 @@ export class ListRdvComponent implements OnInit {
       }
     }
   } ;
+
+  dateReport = "";
+  reporter(rdv){
+    rdv.date = this.dateReport;
+    rdv.etat="Reporté";
+    this.rdvService.annuler(rdv).subscribe(
+    res => {
+      console.log(res);
+    }
+  )
+  }
  
   filterShow = false;
   formShow = false;

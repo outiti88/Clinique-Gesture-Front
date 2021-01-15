@@ -122,11 +122,11 @@
     {
       "patientId": "",
       "motif": "Control",
-      "date": "2021-01-11",
+      "date": "2021-01-15",
       "debut": "21:20",
       "fin": "22:20",
       "medecinId": "2853575017323250142844915156135424841242151293315406501936237",
-      "etat": "fixé",
+      "etat": "Reporté",
       "patient": {
         "id": "2",
         "nom": "tahiri",
@@ -150,17 +150,31 @@
     },
     {
       "motif": "test",
-      "date": "2021-01-15",
+      "date": "2021-01-14",
       "debut": "22:37",
       "fin": "23:37",
       "medecinId": "54356238151444225041485215278358562113455261116144032616",
-      "etat": "fixé",
+      "etat": "Reporté",
       "patient": {
         "id": "1",
         "nom": "karim",
         "prenom": "ahmadi"
       },
       "id": 4
+    },
+    {
+      "motif": "test dossier",
+      "date": "2021-01-30",
+      "debut": "04:13",
+      "fin": "05:13",
+      "medecinId": "54356238151444225041485215278358562113455261116144032616",
+      "etat": "fait",
+      "patient": {
+        "id": "1",
+        "nom": "karim",
+        "prenom": "ahmadi"
+      },
+      "id": 5
     }
   ],
   "documents": [
@@ -323,6 +337,88 @@
       ],
       "rdvId": "1",
       "id": 14
+    },
+    {
+      "scanners": [],
+      "soins": [],
+      "medicaments": [
+        {
+          "id": "1",
+          "quantite": 1
+        }
+      ],
+      "id": 15
+    },
+    {
+      "scanners": [],
+      "soins": [],
+      "medicaments": [
+        {
+          "id": "2",
+          "quantite": 1
+        }
+      ],
+      "id": 16
+    },
+    {
+      "scanners": [],
+      "soins": [],
+      "medicaments": [
+        {
+          "id": "6",
+          "quantite": 1
+        }
+      ],
+      "rdvId": "5",
+      "id": 17
+    },
+    {
+      "scanners": [],
+      "soins": [],
+      "medicaments": [
+        {
+          "id": "6",
+          "quantite": 1
+        }
+      ],
+      "rdvId": "5",
+      "id": 18
+    },
+    {
+      "scanners": [],
+      "soins": [],
+      "medicaments": [
+        {
+          "id": "1",
+          "quantite": 1
+        }
+      ],
+      "rdvId": "5",
+      "id": 19
+    },
+    {
+      "scanners": [],
+      "soins": [],
+      "medicaments": [
+        {
+          "id": "6",
+          "quantite": 1
+        }
+      ],
+      "rdvId": "5",
+      "id": 20
+    },
+    {
+      "scanners": [],
+      "soins": [],
+      "medicaments": [
+        {
+          "id": "7",
+          "quantite": 1
+        }
+      ],
+      "rdvId": "5",
+      "id": 21
     }
   ],
   "medecins": [

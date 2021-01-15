@@ -30,6 +30,8 @@
                     <option value="fixé">Fixé</option>
                     <option value="fait">Fait</option>
                     <option value="annulé">Annulé</option>
+                    <option value="Reporté">Reporté</option>
+
                 </select>
             </div>
         </div>
@@ -94,9 +96,10 @@
 
     </div>
     <div class="row">
-        <div *ngFor="let rdv of rdvs" class="card col-4 mb-3 mx-auto" style="max-width: 20rem;" [ngClass]="{'border-info': rdv.etat == 'fixé', 'border-success': rdv.etat == 'fait', 'border-danger': rdv.etat == 'annulé'}">
+        <div *ngFor="let rdv of rdvs" class="card col-4 mb-3 mx-auto" style="max-width: 20rem;" [ngClass]="{'border-warning': rdv.etat == 'Reporté', 'border-info': rdv.etat == 'fixé', 'border-success': rdv.etat == 'fait', 'border-danger': rdv.etat == 'annulé'}">
 
             <div class="card-header">
+                <span *ngIf="rdv.etat == 'Reporté'" class="badge badge-warning badge-pill float-left">Reporté</span>
                 <span *ngIf="rdv.etat == 'fait'" class="badge badge-success badge-pill float-left">Traité</span>
                 <span *ngIf="rdv.etat == 'annulé'" class="badge badge-danger badge-pill float-left">Annulé</span>
                 <span (click)="annulerRdv(rdv)" *ngIf="rdv.etat == 'fixé'" class="badge badge-danger badge-pill float-left" style="cursor: pointer;">x</span> {{ rdv.patient.nom }} {{ rdv.patient.prenom }}
@@ -108,6 +111,10 @@
             <div class="card-body">
                 <h4 class="card-title">{{rdv.date}} <br> de {{rdv.debut}} à {{rdv.fin}}</h4>
                 <p class="card-text"> {{rdv.motif}}</p>
+            </div>
+            <div *ngIf="rdv.etat == 'fixé'" class="card-footer text-muted row">
+                <input style="width: 70%; " type="date" class="form-control" id="date" [(ngModel)]="dateReport" type="date">
+                <span (click)="reporter(rdv)" style="cursor: pointer;display: block;height: 50%;position: relative;top: 25%;" class="badge badge-info badge-pill float-right">Reporter</span>
             </div>
         </div>
 

@@ -12,7 +12,7 @@ export class PatientService {
   apiUrl = 'http://localhost:3000/patients';
 
 
-  getAllPatients(id){ //cas de medecins : juste ses patients
+  getAllPatients(){ //cas de medecins : juste ses patients
     return this.http.get('http://localhost:3000/patients');
 
   }

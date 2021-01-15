@@ -156,6 +156,7 @@ export class ListDocumentsComponent implements OnInit {
     this.document.scanners = this.scannerAjou;
     this.document.rdvId = this.rdvId;
     if(this.checkDocument()){
+      let rdv : any ;
       this.documentService.persist(this.document).subscribe(
         res => {
           this.documentList = [res , ...this.documentList];
@@ -165,8 +166,16 @@ export class ListDocumentsComponent implements OnInit {
           this.showMedicamentForm();
           this.formMedicament = false;
           this.resetForm();
+          rdv = this.rdvs.filter(x => x.id == this.rdvId)[0];
+          rdv.etat = "fait";
+          this.rdvService.annuler(rdv).subscribe(
+            res => {
+              console.log(res);
+            }
+        )
         }
-      )
+      );
+    
     }
     else{
       this.alertNonAjout=true;
