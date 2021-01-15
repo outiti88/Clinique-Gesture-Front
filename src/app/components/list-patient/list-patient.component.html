@@ -55,7 +55,7 @@
                 <td>{{patient.telephone}} </td>
                 <td>{{patient.adresse}} </td>
                 <td>{{patient.cin}} </td>
-                <td *ngIf="role != 'medecin'">{{getMedecinByFilter(patient.user.userID)}} </td>
+                <td *ngIf="role != 'medecin'">{{getMedecinByFilter(patient.medecin_id)}} </td>
 
                 <td>
                     <a (click)="editPatient(patient)" class="btn btn-warning btn-sm">

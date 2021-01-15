@@ -1,0 +1,175 @@
+<div class="container mt-5 text-xl-center">
+
+    <div class="row mb-5">
+        <h1 class="col-8">Liste Des Dossiers</h1>
+        <a (click)="ajouterDocument()" class="btn btn-success col-2">Ajouter</a>
+    </div>
+
+    <div *ngIf="alertAjout" class="alert alert-dismissible alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4 class="alert-heading">Dossier bien ajouté!</h4>
+    </div>
+
+    <div *ngIf="alertNonAjout" class="alert alert-dismissible alert-danger">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4 class="alert-heading">Impossible d'ajouter un dossier vide!</h4>
+    </div>
+
+    <div class="mx-auto container-fluid" *ngIf="formShow" style="
+        margin-bottom: 15px;
+        border-color: #4bbf73;
+        border: solid;
+        padding: 10px;
+        padding-left: 25px;
+        ">
+        <legend *ngIf="ajoutDocument">
+            <h3>Ajouter un nouveau Dossier </h3>
+        </legend>
+
+        <div class="row mx-auto mt-lg-5">
+            <h4 class="col-4 text-xl-center">Rendez-Vous</h4>
+            <div class="col-8">
+                <select [(ngModel)]="rdvId" class="form-control">
+                    <option selected disabled>Choisissez le Rendez-Vous</option>
+                    <option [value]="rdv.id" *ngFor="let rdv of rdvs"><b>PATIENT:</b> {{rdv.patient.nom}} {{rdv.patient.prenom}}. DATE: {{rdv.date}} </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <ul class="list-group col-4 mt-5">
+                <h3 class="text-success bold">Medicaments <span (click)="showMedicamentForm()" style="cursor: pointer;" class="badge badge-success badge-pill"><i class="fas fa-plus"></i></span> </h3>
+                <b *ngIf="medicamentAjou?.length == 0">Aucun Medicament</b>
+                <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let medi of medicamentAjou">
+                    <b>{{getMedicamentByFilter(medi.id)}}</b> Quantité: {{medi.quantite}}
+                    <span (click)="deleteMedicament(medi.id)" class="badge badge-danger badge-pill float-right" style="cursor: pointer;">
+                        x
+                    </span>
+                </li>
+            </ul>
+            <ul class="list-group col-4 mt-5">
+                <h3 class="text-info">Les Soins <span (click)="showSoinForm()" style="cursor: pointer;" class="badge badge-info badge-pill"><i class="fas fa-plus"></i></span></h3>
+                <b *ngIf="soinAjou?.length == 0">Aucun Soin ajouté</b>
+                <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let soin of soinAjou">
+                    <b>{{getSoinByFilter(soin.id)}}</b>
+                    <span (click)="deleteSoin(soin.id)" class="badge badge-danger badge-pill float-right" style="cursor: pointer;">
+                        x
+                    </span>
+                </li>
+            </ul>
+            <ul class="list-group col-4 mt-5">
+                <h3 class="text-warning">Les Scanners <span (click)="showScannerForm()" style="cursor: pointer;" class="badge badge-warning badge-pill"><i class="fas fa-plus"></i></span></h3>
+                <b *ngIf="scannerAjou?.length == 0">Aucun Scanner ajouté</b>
+                <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let scanner of scannerAjou">
+                    <b>{{getScannerByFilter(scanner.id)}}</b>
+                    <span (click)="deleteScanner(scanner.id)" class="badge badge-danger badge-pill float-right" style="cursor: pointer;">
+                        x
+                    </span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="container-sm">
+            <div *ngIf="formMedicament" class="form-group row mx-auto mt-2">
+                <label for="medicament" class="col-sm-4 col-form-label">Ajouter un Medicament</label>
+                <div class="col-sm-4">
+                    <select class="form-control" id="medicament" [(ngModel)]="medicamentAdded.id">
+                    <option selected disabled>Choisissez le medicament</option>
+                    <option *ngFor="let medicament of medicamentFront" [value]="medicament.id">
+                        {{medicament.name}}
+                    </option>
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                    <input type="number" class="form-control" placeholder="Quantité" [(ngModel)]="medicamentAdded.quantite">
+                </div>
+                <button (click)="ajouterMedicament()" class="btn btn-success col-sm-1">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+            <div *ngIf="formSoin" class="form-group row mx-auto mt-2">
+                <label for="soin" class="col-sm-4 col-form-label">Ajouter un Soin</label>
+                <div class="col-sm-7">
+                    <select class="form-control" id="soin" [(ngModel)]="soinAdded.id">
+                    <option selected disabled>Choisissez le Soin</option>
+                    <option *ngFor="let soin of soinFront" [value]="soin.id">
+                        {{soin.type}}
+                    </option>
+                    </select>
+                </div>
+                <button (click)="ajouterSoin()" class="btn btn-info col-sm-1">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+            <div *ngIf="formScanner" class="form-group row mx-auto mt-2">
+                <label for="soin" class="col-sm-4 col-form-label">Ajouter un Scanner</label>
+                <div class="col-sm-7">
+                    <select class="form-control" id="scanner" [(ngModel)]="scannerAdded.id">
+                    <option selected disabled>Choisissez le Scanner</option>
+                    <option *ngFor="let scanner of scannerFront" [value]="scanner.id">
+                        {{scanner.type}}
+                    </option>
+                    </select>
+                </div>
+                <button (click)="ajouterScanner()" class="btn btn-warning col-sm-1">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <button *ngIf="ajoutDocument" class="btn btn-success align-center mt-5" (click)="addDocument()">Ajouter</button>
+
+    </div>
+
+    <div id="accordion" class="mt-5">
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Collapsible Group Item #1
+          </button>
+                </h5>
+            </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
+                    on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table,
+                    raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingTwo">
+                <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Collapsible Group Item #2
+          </button>
+                </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                <div class="card-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
+                    on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table,
+                    raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingThree">
+                <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            Collapsible Group Item #3
+          </button>
+                </h5>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                <div class="card-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird
+                    on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table,
+                    raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

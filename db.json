@@ -24,35 +24,35 @@
   "medicamentsAdd": [
     {
       "name": "Rhumix",
-      "price": "200",
-      "categorie": "cardiologie",
+      "price": 200,
+      "categorie": "neurologie",
       "type": "COMPRIMÉ",
       "id": 1
     },
     {
       "name": "Medi 1",
-      "price": "120",
+      "price": 120,
       "categorie": "pediatrie",
       "type": "LIQUIDES",
       "id": 2
     },
     {
       "name": "test",
-      "price": "200",
-      "categorie": "neurologie",
+      "price": 200,
+      "categorie": "cardiologie",
       "type": "TRANSDERMIQUES",
       "id": 5
     },
     {
       "name": "supradine",
-      "price": "150",
+      "price": 150,
       "categorie": "rhumatologie",
       "type": "GÉLULE",
       "id": 6
     },
     {
       "name": "medica3",
-      "price": "225",
+      "price": 225,
       "categorie": "orthopedie",
       "type": "LIQUIDES",
       "id": 7
@@ -70,139 +70,276 @@
       "price": "420",
       "medecinId": "14354199113158312751313951264315113834403049225531571344492235",
       "id": 2
+    },
+    {
+      "type": "SCANNER ABDOMINO PELVIEN",
+      "price": "120",
+      "medecinId": "2853575017323250142844915156135424841242151293315406501936237",
+      "id": 3
+    },
+    {
+      "type": "ANGIOSCANNER",
+      "price": "520",
+      "medecinId": "2853575017323250142844915156135424841242151293315406501936237",
+      "id": 4
+    },
+    {
+      "type": "test",
+      "price": "220",
+      "medecinId": "2853575017323250142844915156135424841242151293315406501936237",
+      "id": 5
+    },
+    {
+      "type": "test soin",
+      "price": "220",
+      "medecinId": "54356238151444225041485215278358562113455261116144032616",
+      "id": 6
+    },
+    {
+      "type": "Control",
+      "price": "150",
+      "medecinId": "54356238151444225041485215278358562113455261116144032616",
+      "id": 7
     }
   ],
   "rdvs": [],
   "rdvResponse": [
     {
-      "motif": "Visite medicial",
-      "date": "2021-01-06",
-      "debut": "05:24",
-      "fin": "06:25",
+      "patientId": "",
+      "motif": "dddd",
+      "date": "2021-01-11",
+      "debut": "23:18",
+      "fin": "00:18",
+      "medecinId": "2853575017323250142844915156135424841242151293315406501936237",
       "etat": "annulé",
-      "id": 4,
       "patient": {
-        "patientId": "26433331222115103591222647235811331073320918916306157",
-        "nom": "ayoub",
-        "prenom": "outiti"
-      }
-    },
-    {
-      "motif": "Control",
-      "date": "2021-01-07",
-      "debut": "05:24",
-      "fin": "06:25",
-      "etat": "fixé",
-      "id": 3,
-      "patient": {
-        "patientId": "26433331222115103591222647235811331073320918916306157",
+        "id": "1",
         "nom": "karim",
         "prenom": "ahmadi"
-      }
+      },
+      "id": 1
     },
     {
-      "motif": "Visite medicial",
-      "date": "2021-01-08",
-      "debut": "05:24",
-      "fin": "06:25",
-      "etat": "fait",
-      "id": 1,
+      "patientId": "",
+      "motif": "Control",
+      "date": "2021-01-11",
+      "debut": "21:20",
+      "fin": "22:20",
+      "medecinId": "2853575017323250142844915156135424841242151293315406501936237",
+      "etat": "fixé",
       "patient": {
-        "patientId": "26433331222115103591222647235811331073320918916306157",
-        "nom": "khalid",
-        "prenom": "taki"
-      }
-    },
-    {
-      "motif": "test ajout",
-      "date": "2021-01-07",
-      "debut": "14:42",
-      "fin": "15:42",
-      "etat": "annulé",
-      "patient": {
-        "patientId": "35444810544283949522744333355412646120611131473515921436",
-        "nom": "hamza",
-        "prenom": "layachi"
+        "id": "2",
+        "nom": "tahiri",
+        "prenom": "hassan"
       },
       "id": 2
     },
     {
-      "motif": "tes json",
-      "date": "2021-01-01",
-      "debut": "14:52",
-      "fin": "14:52",
-      "etat": "fixé",
-      "patient": {
-        "patientId": "521192524495648851182902933384019165439465232195237311824",
-        "nom": "test",
-        "prenom": "patient"
-      },
-      "id": 5
-    },
-    {
-      "motif": "eeeee",
-      "date": "2021-01-22",
-      "debut": "20:47",
-      "fin": "20:47",
-      "etat": "fixé",
-      "patient": {
-        "patientId": "26433331222115103591222647235811331073320918916306157",
-        "nom": "ayoub",
-        "prenom": "outiti"
-      },
-      "id": 6
-    },
-    {
-      "motif": "fukfdycj",
-      "date": "2021-01-07",
-      "debut": "16:22",
-      "fin": "20:17",
-      "etat": "fixé",
-      "patient": {
-        "patientId": "26433331222115103591222647235811331073320918916306157",
-        "nom": "ayoub",
-        "prenom": "outiti"
-      },
-      "id": 7
-    },
-    {
-      "motif": "fukfdycj",
-      "date": "2021-01-22",
-      "debut": "17:47",
-      "fin": "15:49",
+      "motif": "viste medicale",
+      "date": "2021-01-14",
+      "debut": "14:27",
+      "fin": "15:28",
+      "medecinId": "54356238151444225041485215278358562113455261116144032616",
       "etat": "annulé",
       "patient": {
-        "patientId": "5626113812551303945339104301425482373015393350334411318",
+        "id": "1",
         "nom": "karim",
         "prenom": "ahmadi"
       },
-      "id": 8
+      "id": 3
+    },
+    {
+      "motif": "test",
+      "date": "2021-01-15",
+      "debut": "22:37",
+      "fin": "23:37",
+      "medecinId": "54356238151444225041485215278358562113455261116144032616",
+      "etat": "fixé",
+      "patient": {
+        "id": "1",
+        "nom": "karim",
+        "prenom": "ahmadi"
+      },
+      "id": 4
+    }
+  ],
+  "documents": [
+    {
+      "soins": [
+        {
+          "id": "7"
+        }
+      ],
+      "medicaments": [
+        {
+          "id": "5",
+          "quantite": 1
+        }
+      ],
+      "scanners": [
+        {
+          "id": "1"
+        }
+      ],
+      "id": 1
+    },
+    {
+      "scanners": [
+        {
+          "id": "2"
+        }
+      ],
+      "soins": [
+        {
+          "id": "7"
+        }
+      ],
+      "medicaments": [
+        {
+          "id": "1",
+          "quantite": 2
+        }
+      ],
+      "id": 2
+    },
+    {
+      "scanners": [
+        {
+          "id": "2"
+        }
+      ],
+      "soins": [
+        {
+          "id": "6"
+        }
+      ],
+      "medicaments": [
+        {
+          "id": "6",
+          "quantite": 1
+        },
+        {
+          "id": "1",
+          "quantite": 1
+        }
+      ],
+      "id": 4
+    },
+    {
+      "scanners": [
+        {
+          "id": "2"
+        },
+        {
+          "id": "2"
+        }
+      ],
+      "soins": [
+        {
+          "id": "6"
+        }
+      ],
+      "medicaments": [
+        {
+          "id": "6",
+          "quantite": 3
+        },
+        {
+          "id": "7",
+          "quantite": 1
+        },
+        {
+          "id": "6",
+          "quantite": 2
+        },
+        {
+          "id": "1",
+          "quantite": 2
+        }
+      ],
+      "id": 5
+    },
+    {
+      "scanners": [
+        {
+          "id": "2"
+        }
+      ],
+      "soins": [
+        {
+          "id": "7"
+        }
+      ],
+      "medicaments": [
+        {
+          "id": "6",
+          "quantite": 1
+        },
+        {
+          "id": "1",
+          "quantite": 2
+        }
+      ],
+      "id": 6
+    },
+    {
+      "scanners": [
+        {
+          "id": "2"
+        }
+      ],
+      "soins": [
+        {
+          "id": "7"
+        }
+      ],
+      "medicaments": [
+        {
+          "id": "1",
+          "quantite": 1
+        }
+      ],
+      "id": 12
+    },
+    {
+      "scanners": [],
+      "soins": [],
+      "medicaments": [
+        {
+          "id": "1",
+          "quantite": 1
+        }
+      ],
+      "id": 13
+    },
+    {
+      "scanners": [],
+      "soins": [],
+      "medicaments": [
+        {
+          "id": "1",
+          "quantite": 1
+        }
+      ],
+      "rdvId": "1",
+      "id": 14
     }
   ],
   "medecins": [
     {
+      "userID": "54356238151444225041485215278358562113455261116144032616",
+      "firstName": "outiti",
+      "lastName": "Medecin",
       "email": "medecin@gmail.com",
-      "firstName": "Ayoub",
-      "lastName": "medecin",
-      "userID": "5494016106014502850264223533147581049315127404556611442731",
       "role": {
         "name": "medecin"
       }
     },
     {
-      "email": "khalid@gmail.com",
-      "firstName": "khalid",
-      "lastName": "ibrahimi",
-      "userID": "295430344111531225396514730271729535030191737245759392024503249",
-      "role": {
-        "name": "medecin"
-      }
-    },
-    {
-      "email": "hassan@gmail.com",
-      "firstName": "fettah",
-      "lastName": "idrissi",
-      "userID": "4911412464885520451495102023298315027648461195525136199",
+      "userID": "2853575017323250142844915156135424841242151293315406501936237",
+      "firstName": "abbari",
+      "lastName": "ouassim",
+      "email": "abbari@gmail.com",
       "role": {
         "name": "medecin"
       }
@@ -210,30 +347,30 @@
   ],
   "patients": [
     {
-      "nom": "test",
-      "prenom": "json",
-      "adresse": "serve json",
-      "telephone": "0649440905",
-      "cin": "cd251487",
-      "medecin_id": "4911412464885520451495102023298315027648461195525136199",
+      "nom": "karim",
+      "prenom": "ahmadi",
+      "adresse": "fes narjiss",
+      "telephone": "064875910",
+      "cin": "cd258974",
+      "medecin_id": "54356238151444225041485215278358562113455261116144032616",
       "id": 1
     },
     {
-      "nom": "ayoub",
-      "prenom": "demami",
-      "adresse": "bhjbvhjbh",
-      "telephone": "0649440905",
-      "cin": "cd251478",
-      "medecin_id": "295430344111531225396514730271729535030191737245759392024503249",
+      "nom": "tahiri",
+      "prenom": "hassan",
+      "adresse": "mhanech tetouan",
+      "telephone": "0614789525",
+      "cin": "fr257896",
+      "medecin_id": "2853575017323250142844915156135424841242151293315406501936237",
       "id": 2
     },
     {
-      "nom": "patient",
-      "prenom": "ouassim",
-      "adresse": "test adress",
-      "telephone": "0649440502",
-      "cin": "cd256987",
-      "medecin_id": "14354199113158312751313951264315113834403049225531571344492235",
+      "nom": "test",
+      "prenom": "test",
+      "adresse": "test tes",
+      "telephone": "0649440905",
+      "cin": "cd254895",
+      "medecin_id": "2853575017323250142844915156135424841242151293315406501936237",
       "id": 3
     }
   ]

@@ -15,10 +15,10 @@
         <div class="form-group row mx-auto mt-2">
             <label for="Patient" class="col-sm-2 col-form-label">Patient</label>
             <div class="col-sm-4">
-                <select class="form-control" id="Patient" [(ngModel)]="rdvSearch.patient.patientId">
+                <select class="form-control" id="Patient" [(ngModel)]="rdvSearch.patient.id">
                     <option selected disabled>Choisissez le patient</option>
-                    <option *ngFor="let patient of patients" [value]="patient.patientId">
-                        {{getPatientName(patient.patientId)}}
+                    <option *ngFor="let patient of patients" [value]="patient.id">
+                        {{getPatientName(patient.id)}}
                     </option>
                 </select>
             </div>
@@ -64,8 +64,8 @@
             <div class="col-sm-4">
                 <select class="form-control" id="Patient" [(ngModel)]="rdv.patientId" required>
                     <option selected disabled>Choisissez le patient</option>
-                    <option *ngFor="let patient of patients" [value]="patient.patientId">
-                        {{getPatientName(patient.patientId)}}
+                    <option *ngFor="let patient of patients" [value]="patient.id">
+                        {{getPatientName(patient.id)}}
                     </option>
                 </select>
             </div>

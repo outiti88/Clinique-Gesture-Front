@@ -42,7 +42,6 @@ export class ListRdvComponent implements OnInit {
 
   
   patient : Patient =  {
-    patientId:	"",
     nom: "",
     prenom: "",
     adresse: "",
@@ -72,7 +71,7 @@ export class ListRdvComponent implements OnInit {
         fin  : "",
         etat  :"fixé",
         patient : {
-          patientId : "",
+          id : "",
           nom : "",
           prenom : "" ,
         }
@@ -84,9 +83,10 @@ export class ListRdvComponent implements OnInit {
         date   :"",
        debut  : "",
         fin  : "",
+        medecinId : localStorage.getItem('id'),
         etat  :"fixé",
         patient : {
-          patientId : "",
+          id : "",
           nom : "",
           prenom : "" ,
         }
@@ -96,7 +96,6 @@ export class ListRdvComponent implements OnInit {
   getAllRdv(){
     this.rdvService.getRdvs().subscribe((res) => {
       this.rdvs = res ;
-      console.log("rdvs: " +this.rdvs );
     });
   }
 
@@ -106,9 +105,9 @@ export class ListRdvComponent implements OnInit {
     this.rdvForJsonServer.debut = this.rdv.debut;
     this.rdvForJsonServer.fin = this.rdv.fin;
     this.rdvForJsonServer.etat = this.rdv.etat;
-    this.rdvForJsonServer.patient.patientId = this.rdv.patientId;
-    this.rdvForJsonServer.patient.nom = this.patients.filter(x => x.patientId === this.rdv.patientId)[0].nom;
-    this.rdvForJsonServer.patient.prenom = this.patients.filter(x => x.patientId === this.rdv.patientId)[0].prenom;
+    this.rdvForJsonServer.patient.id = this.rdv.patientId;
+    this.rdvForJsonServer.patient.nom = this.patients.filter(x => x.id == this.rdv.patientId)[0].nom;
+    this.rdvForJsonServer.patient.prenom = this.patients.filter(x => x.id == this.rdv.patientId)[0].prenom;
     this.rdvService.persist(this.rdvForJsonServer).subscribe(
       res => {
         this.rdvs = [this.rdvForJsonServer, ...this.rdvs];
@@ -127,8 +126,9 @@ export class ListRdvComponent implements OnInit {
      debut  : "",
       fin  : "",
       etat  :"",
+      medecinId : "",
       patient : {
-        patientId : "",
+        id : "",
         nom : "",
         prenom : "" ,
       }
@@ -152,7 +152,7 @@ export class ListRdvComponent implements OnInit {
         fin  : "",
         etat  :"",
         patient : {
-          patientId : "",
+          id : "",
           nom : "",
           prenom : "" ,
         }
@@ -184,7 +184,7 @@ export class ListRdvComponent implements OnInit {
  }
 
  getPatientName(id){
-  let patient :Patient = this.patients.filter(x => x.patientId === id)[0];
+  let patient :Patient = this.patients.filter(x => x.id === id)[0];
   return patient.nom + " " + patient.prenom;
 }
 

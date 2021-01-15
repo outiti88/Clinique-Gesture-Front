@@ -23,10 +23,14 @@ export class RdvService {
     return this.http.post(this.apiUrl, rdv);
   }
 
+  getRdvsFixer(){
+    return this.http.get(`${this.apiUrl}?etat=fixé`);
+  }
+
   filter(rdv){
     let filterUrl = 'http://localhost:3000/rdvResponse?'
     if(rdv.date.length>0) filterUrl += "&date="+rdv.date;
-    if(rdv.patient.patientId.length>0) filterUrl += "&patient.patientId="+rdv.patient.patientId;
+    if(rdv.patient.id.length>0) filterUrl += "&patient.id="+rdv.patient.id;
     if(rdv.etat.length>0) filterUrl += "&etat="+rdv.etat;
     if(rdv.debut.length>0) filterUrl += "&debut="+rdv.debut;
     if(rdv.fin.length>0) filterUrl += "&date="+rdv.fin;

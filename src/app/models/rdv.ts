@@ -1,6 +1,7 @@
 export class Rdv{
 
     patientId ?: string = "";
+    medecinId ?: string = "";
     motif : string  = "";
 	date : string  = "";
 	debut : string  = "";

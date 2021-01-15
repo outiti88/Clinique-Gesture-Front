@@ -35,6 +35,15 @@ export class MedicamentService {
 
   }
 
+  getMedicament(id){
+    return this.http.get(`${this.apiUrl}/${id}`)
+  }
+
+  getAll(){
+    return this.http.get(this.apiUrl);
+
+  }
+
   update(medicament){
     return this.http.put(`${this.apiUrl}/${medicament.id}`,medicament);
   }

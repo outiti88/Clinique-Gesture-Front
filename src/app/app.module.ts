@@ -21,6 +21,7 @@ import { ListRdvComponent } from './components/rdv/list-rdv/list-rdv.component';
 import { ListScannersComponent } from './components/scanners/list-scanners/list-scanners.component';
 import { ListMedicamentsComponent } from './components/medicaments/list-medicaments/list-medicaments.component';
 import { ListSoinsComponent } from './components/soins/list-soins/list-soins.component';
+import { ListDocumentsComponent } from './components/document/list-documents/list-documents.component';
 
 
 
@@ -45,6 +46,10 @@ const routes: Routes =[
 
   { path : "RDV"  , children:[
     { path : "" , component : ListRdvComponent}
+  ] , canActivate:[AuthGuard]} , 
+
+  { path : "Dossiers"  , children:[
+    { path : "" , component : ListDocumentsComponent}
   ] , canActivate:[AuthGuard]} , 
 
    { path : "Soins"  , children:[
@@ -85,7 +90,8 @@ const routes: Routes =[
     ListRdvComponent,
     ListScannersComponent,
     ListMedicamentsComponent,
-    ListSoinsComponent
+    ListSoinsComponent,
+    ListDocumentsComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

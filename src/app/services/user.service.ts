@@ -19,6 +19,8 @@ export class UserService {
   getUsers(){
     return this.http.get(this.apiUrl);
   }
+
+
   
 
   getUsersPage(page){
