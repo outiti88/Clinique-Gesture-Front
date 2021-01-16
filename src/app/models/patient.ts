@@ -7,8 +7,8 @@ export class Patient {
 	adresse : string ;
 	telephone ?: string ;
 	cin : string ;
-	medecin_id ?: string;
-	user ?: User ;
+	usersIds ?: Array<string> = [];
+	users ?: User[] ;
 
     constructor() {
     }

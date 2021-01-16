@@ -3,6 +3,7 @@ import { PatientService } from 'src/app/services/patient.service';
 import { Router } from '@angular/router';
 import { Patient } from 'src/app/models/patient';
 import { UserService } from 'src/app/services/user.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-list-patient',
@@ -38,23 +39,7 @@ export class ListPatientComponent implements OnInit {
 
   medecins : any = [] ;
 
-  patient : Patient =  {
-    patientId:	"",
-    nom: "",
-    prenom: "",
-    adresse: "",
-    telephone: "",
-    cin : "",
-    user : {
-      userID:	"",
-      firstName: "",
-      lastName: "",
-      email: "",
-      role: {
-        name: ""
-      }
-    }
-  } ;
+  patient : Patient = new Patient();
 
   patients : any = [] ;
   formPatient = false ;
@@ -84,17 +69,9 @@ export class ListPatientComponent implements OnInit {
   }
 
   addPatient(){
-    let patientPersist = {
-      nom : this.patient.nom ,
-      prenom : this.patient.prenom ,
-      adresse : this.patient.adresse ,
-      telephone : this.patient.telephone ,
-      cin : this.patient.cin ,
-      medecin_id : (this.role != 'medecin') ? this.patient.user.userID : localStorage.getItem('id')
-    }
-    //console.log(patientPersist);
+    this.patient.usersIds.push( localStorage.getItem('id'));
 
-    this.patientService.persist(patientPersist).subscribe(
+    this.patientService.persist(this.patient).subscribe(
 
       res => {
         this.patients = [this.patient, ...this.patients];
@@ -110,40 +87,47 @@ export class ListPatientComponent implements OnInit {
   }
   
   updatePatient(){
-    this.formPatient = false;
-    this.alertEdit = true;
-    console.log(this.patient);
+    this.patient.usersIds = _.map(this.patient.users,'userID');
+    this.patientService.update(this.patient)
+          .subscribe(() => {
+            this.formPatient = false;
+            this.alertEdit = true;
+            });
+
   }
 
-  deletePatient(id,nom){
-      if(confirm("Voulez vous vraiment supprimer: "+nom)){
-        /*this.patientService.delete(id)
-        .subscribe(() => {
-          this.patients = this.patients.filter(patient => patient.patientId != id);
-          alert('supprimer');
-          });*/
-          this.patients = this.patients.filter(patient => patient.patientId != id);
+  deletePatient(patient){
+
+      if(confirm("Voulez vous vraiment supprimer: "+patient.nom)){
+
+        if(localStorage.getItem('role') == 'gp'){
+          this.patientService.delete(patient.id)
+          .subscribe(() => {
+            this.patients = this.patients.filter(patient => patient.patientId != patient.id);
+            alert('supprimer');
+            });
+        }
+        else{
+          let medecins = patient.users;
+          medecins = medecins.filter(medecin => medecin.userID != localStorage.getItem('id'));
+          let medecin_id = _.map(medecins,'userID');
+          patient.usersIds = medecin_id;
+          this.patientService.update(patient)
+          .subscribe(() => {
+            this.patients = this.patients.filter(patient => patient.patientId != patient.id);
+            alert('supprimer');
+            });
+        }
+
+
+        
+
+
         }
   }
 
   add() {
-    this.patient =  {
-      patientId:	"",
-      nom: "",
-      prenom: "",
-      adresse: "",
-      telephone: "",
-      cin : "",
-       user : {
-        userID:	"",
-        firstName: "",
-        lastName: "",
-        email: "",
-        role: {
-          name: ""
-        }
-      }
-    } ;
+    this.patient =  new Patient() ;
     this.formPatient = !this.formPatient;
     this.edit = false;
     this.ajouter = true;

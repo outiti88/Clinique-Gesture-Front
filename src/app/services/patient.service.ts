@@ -9,17 +9,15 @@ export class PatientService {
 
   constructor(private http : HttpClient) { }
 
-  apiUrl = 'http://localhost:3000/patients';
+  apiUrl = 'http://localhost:8085/patients';
 
 
   getAllPatients(){ //cas de medecins : juste ses patients
-    return this.http.get('http://localhost:3000/patients');
-
+    return this.http.get(this.apiUrl);
   }
 
   persist(patient : Patient){
-    //return this.http.post('http://localhost:8085/patients', patient);
-    return this.http.post('http://localhost:3000/patients', patient);
+    return this.http.post(this.apiUrl, patient);
 
   }
 

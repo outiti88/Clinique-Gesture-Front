@@ -31,7 +31,6 @@
             </tr>
         </thead>
         <tbody>
-
             <tr *ngIf="formPatient" style="margin: 0; padding:0">
                 <td><input style="margin: 0; padding:0" class="form-control" type="text" [(ngModel)]="patient.nom" required></td>
                 <td><input style="margin: 0; padding:0" class="form-control" type="text" [(ngModel)]="patient.prenom" required></td>
@@ -39,7 +38,7 @@
                 <td><input style="margin: 0; padding:0" class="form-control" type="text" [(ngModel)]="patient.adresse" required></td>
                 <td><input style="margin: 0; padding:0" class="form-control" type="text" [(ngModel)]="patient.cin" required></td>
                 <td *ngIf="role != 'medecin'">
-                    <select class="form-control" [(ngModel)]="patient.user.userID">
+                    <select class="form-control" [(ngModel)]="patient.usersIds">
                         <option *ngFor="let medecin of medecins" [value]="medecin.userID">
                             {{getMedecinByFilter(medecin.userID)}}
                         </option>
@@ -63,7 +62,7 @@
                     </a>
                 </td>
                 <td>
-                    <button class="btn btn-sm btn-dark" (click)="deletePatient(patient.patientId,patient.prenom)">
+                    <button class="btn btn-sm btn-dark" (click)="deletePatient(patient)">
                     <i class="fas fa-trash"></i>
                 </button>
                 </td>

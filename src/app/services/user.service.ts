@@ -40,7 +40,7 @@ export class UserService {
   }
 
   getMedecins(){
-    return this.http.get("http://localhost:3000/medecins");
+    return this.http.get(this.apiUrl); // que les medecins
   }
 
 }

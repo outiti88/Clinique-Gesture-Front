@@ -20,15 +20,7 @@ export class ListUserComponent implements OnInit, OnDestroy {
     edit = false;
     userEdited = false;
     
-    userEdit : User =  {
-      userID:	"",
-      firstName: "",
-      lastName: "",
-      email: "",
-      role: {
-        name: ""
-      }
-    } ;
+    userEdit : User =  new User() ;
 
 
     users : any = [] ;
