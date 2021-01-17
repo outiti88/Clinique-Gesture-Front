@@ -107,7 +107,23 @@
         <button class="btn btn-success" (click)="addRdv()">Créer</button>
 
     </div>
+
+    <div *ngIf="chargement" class="row d-flex justify-content-around">
+        <div class="spinner-grow text-success"></div>
+        <div class="spinner-grow text-info"></div>
+        <div class="spinner-grow text-warning"></div>
+        <div class="spinner-grow text-danger"></div>
+        <div class="spinner-grow text-success"></div>
+        <div class="spinner-grow text-info"></div>
+        <div class="spinner-grow text-warning"></div>
+        <div class="spinner-grow text-danger"></div>
+
+    </div>
     <div class="row">
+        <div *ngIf="chargementAjout" class="card col-4 mb-3 mx-auto border-info d-flex justify-content-around" style="max-width: 20rem;">
+            <div class="spinner-grow text-info mx-auto" style="width: 4rem;height: 4rem;"></div>
+        </div>
+
         <div *ngFor="let rdv of rdvs" class="card col-4 mb-3 mx-auto" style="max-width: 20rem;" [ngClass]="{'border-warning': rdv.state == 'reporté', 'border-info': rdv.state == 'fixé', 'border-success': rdv.state == 'validé', 'border-danger': rdv.state == 'annulé'}">
 
             <div class="card-header">
@@ -129,6 +145,7 @@
                 <span (click)="reporter(rdv)" style="cursor: pointer;display: block;height: 50%;position: relative;top: 25%;" class="badge badge-info badge-pill float-right">Reporter</span>
             </div>
         </div>
-
     </div>
+
+
 </div>

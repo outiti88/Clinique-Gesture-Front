@@ -41,10 +41,13 @@ export class ListRdvComponent implements OnInit {
   id = localStorage.getItem('role');
  
 
-  
+  chargement = false;
+  chargementAjout = false;
   patient : Patient ;
   reportDateShow = "";
   dateReport = "";
+
+
   reporter(rdv){
     if(this.dateReport != "" ){
       rdv.patientId = rdv.patient.patientId;
@@ -82,18 +85,28 @@ export class ListRdvComponent implements OnInit {
 
 
 
+  getRdvMedecin(id){
+    this.chargement = true;
+    this.rdvService.getRdvMedecin(id).subscribe((res) => {
+      this.chargement = false;
+      this.rdvs=res;
+    })
+  }
 
   getAllRdv(){
+    this.chargement = true;
     this.rdvService.getRdvs().subscribe((res) => {
+      this.chargement = false;
       this.rdvs = res ;
     });
   }
 
   addRdv(){
+    this.chargementAjout = true;
      this.rdv.medecinId = (this.role == "gp") ? this.rdv.medecinId : localStorage.getItem('id') ;
-     
     this.rdvService.persist(this.rdv).subscribe(
       res => {
+        this.chargementAjout = false;
         this.rdvs = [res, ...this.rdvs];
         this.formShow = false;
         this.alertAjout = true;
@@ -132,11 +145,6 @@ export class ListRdvComponent implements OnInit {
     })
   }
 
-  getRdvMedecin(id){
-    this.rdvService.getRdvMedecin(id).subscribe((res) => {
-      this.rdvs=res;
-    })
-  }
 
 
   getAllPatients(){

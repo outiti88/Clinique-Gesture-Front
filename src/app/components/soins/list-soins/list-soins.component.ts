@@ -19,6 +19,8 @@ export class ListSoinsComponent implements OnInit {
     this.getAllSoins();
   }
 
+  chargement = true;
+  chargementAjout = false;
   soins : any = [];
   soin : Soin = new Soin(localStorage.getItem('id') ) ;
   formShow = false;
@@ -40,8 +42,9 @@ export class ListSoinsComponent implements OnInit {
   }
 
   getAllSoins(){
-    this.soinService.getAll(localStorage.getItem('id')).subscribe(
+    this.soinService.getAll().subscribe(
       res => {
+        this.chargement = false;
         this.soins = res;
       }
     )
@@ -49,6 +52,7 @@ export class ListSoinsComponent implements OnInit {
   }
 
   edit(soin){
+    soin.medecinId = localStorage.getItem('id');
     this.soinService.update(soin).subscribe(
       res => {
         this.formShow=false;
@@ -57,20 +61,23 @@ export class ListSoinsComponent implements OnInit {
   }
 
   addSoin(){
+    this.chargementAjout = true;
     this.soinService.persist(this.soin).subscribe(
       res => {
-        this.soins = [this.soin, ...this.soins];
+        this.chargementAjout = false;
+        this.soins = [res, ...this.soins];
         this.formShow = false;
       }
     )
   }
 
   delete(soin){
-    if(confirm("Voulez vous vraiment supprimer: "+soin.type)){
-        this.soinService.delete(soin.id).subscribe(
+    this.formShow=false;
+    if(confirm("Voulez vous vraiment supprimer: "+soin.typeSoin)){
+        this.soinService.delete(soin.soinId).subscribe(
           res => {
             this.formShow=false;
-            this.soins = this.soins.filter(s => s.id != soin.id);
+            this.soins = this.soins.filter(s => s.soinId != soin.soinId);
           }
 
         )

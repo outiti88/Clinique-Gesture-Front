@@ -15,11 +15,11 @@
         <div class="form-group row mx-auto mt-2">
             <label for="type" class="col-sm-2 col-form-label">Type de soin</label>
             <div class="col-sm-4">
-                <input placeholder="Type de soin" type="text" id="type" class="form-control" [(ngModel)]="soin.type" required>
+                <input placeholder="Type de soin" type="text" id="type" class="form-control" [(ngModel)]="soin.typeSoin" required>
             </div>
             <label for="price" class="col-sm-2 col-form-label">prix</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="price" placeholder="Prix du soin (MAD)" [(ngModel)]="soin.price" required>
+                <input type="text" class="form-control" id="price" placeholder="Prix du soin (MAD)" [(ngModel)]="soin.prix" required>
             </div>
 
         </div>
@@ -32,11 +32,21 @@
     <div class="row">
         <ul class="list-group col-4 mt-5" *ngFor="let soin of soins">
             <li (click)="modifier(soin)" class="list-group-item d-flex justify-content-between align-items-center">
-                <span (click)="delete(soin)" class="badge badge-primary badge-pill" style="cursor: pointer;">x</span> <b>{{soin.type}}</b>
-                <span class="badge badge-success badge-pill">{{soin.price}} MAD</span>
+                <span (click)="delete(soin)" class="badge badge-primary badge-pill" style="cursor: pointer;">x</span> <b>{{soin.typeSoin}}</b>
+                <span class="badge badge-success badge-pill">{{soin.prix}} MAD</span>
+            </li>
+        </ul>
+        <ul *ngIf="chargementAjout" class="list-group col-4 mt-5">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="row d-flex justify-content-around">
+                    <div class="spinner-border text-success"></div>
+                </div>
             </li>
         </ul>
 
+    </div>
+    <div *ngIf="chargement" class="row d-flex justify-content-around">
+        <div class="spinner-border text-success" style="width: 4rem;height: 4rem;"></div>
 
     </div>
 </div>

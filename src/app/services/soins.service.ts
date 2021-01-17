@@ -10,20 +10,23 @@ export class SoinsService {
   constructor(private http : HttpClient) { }
 
 
-  apiUrl = 'http://localhost:3000/soins' ;
+  apiUrl = 'http://localhost:8085/soin' ;
 
   persist(soin : Soin){
     return this.http.post(this.apiUrl, soin);
   }
 
  
-  getAll(id){
+  /* getAll(id){
     return this.http.get(`${this.apiUrl}?medecinId=${id}`);
+  } */
 
+  getAll(){
+    return this.http.get(this.apiUrl);
   }
 
   update(soin){
-    return this.http.put(`${this.apiUrl}/${soin.id}`,soin);
+    return this.http.put(`${this.apiUrl}/${soin.soinId}`,soin);
   }
 
   delete(id){
