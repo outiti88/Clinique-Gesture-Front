@@ -27,6 +27,7 @@ export class ListRdvComponent implements OnInit {
     }
 
     if(localStorage.getItem('role') == 'gp'){
+      this.getAllMedecins();
       this.getAllRdv();
     }
 
@@ -41,67 +42,45 @@ export class ListRdvComponent implements OnInit {
  
 
   
-  patient : Patient =  {
-    nom: "",
-    prenom: "",
-    adresse: "",
-    telephone: "",
-    cin : "",
-    user : {
-      userID:	"",
-      firstName: "",
-      lastName: "",
-      email: "",
-      role: {
-        name: ""
-      }
-    }
-  } ;
-
+  patient : Patient ;
+  reportDateShow = "";
   dateReport = "";
   reporter(rdv){
-    rdv.date = this.dateReport;
-    rdv.etat="Reporté";
-    this.rdvService.annuler(rdv).subscribe(
-    res => {
-      console.log(res);
+    if(this.dateReport != "" ){
+      rdv.patientId = rdv.patient.patientId;
+      rdv.medecinId = rdv.medecin.userID;
+      rdv.date = this.dateReport;
+      rdv.state="reporté";
+      this.rdvService.annuler(rdv).subscribe(
+      res => {
+        console.log(res);
+        this.reportDateShow = "";
+        this.rdv = new Rdv();
+      }
+    )
     }
-  )
+    else{
+      alert("date vide");
+    }
+   
   }
  
   filterShow = false;
   formShow = false;
   alertAjout = false;
   patients : any = [] ;
+  medecins : any = [];
   rdvs : any = [];
-  rdv : any = { //for springboot api (RdvRequest)
-        patientId : "",
-        motif  : "",
-        date   :"",
-       debut  : "",
-        fin  : "",
-        etat  :"fixé",
-        patient : {
-          id : "",
-          nom : "",
-          prenom : "" ,
-        }
-  } ; 
+  rdv : Rdv = new Rdv(); 
 
-  //Provisoire
-  rdvForJsonServer : any = {
-      motif  : "",
-        date   :"",
-       debut  : "",
-        fin  : "",
-        medecinId : localStorage.getItem('id'),
-        etat  :"fixé",
-        patient : {
-          id : "",
-          nom : "",
-          prenom : "" ,
-        }
-  }
+  //For filter
+  rdvSearch: Rdv;
+  searchDate : any;
+  searchPatient : any ;
+  searchDebut : any;
+  searchFin : any ;
+
+
 
 
   getAllRdv(){
@@ -111,44 +90,28 @@ export class ListRdvComponent implements OnInit {
   }
 
   addRdv(){
-    this.rdvForJsonServer.motif = this.rdv.motif;
-    this.rdvForJsonServer.date = this.rdv.date;
-    this.rdvForJsonServer.debut = this.rdv.debut;
-    this.rdvForJsonServer.fin = this.rdv.fin;
-    this.rdvForJsonServer.etat = this.rdv.etat;
-    this.rdvForJsonServer.patient.id = this.rdv.patientId;
-    this.rdvForJsonServer.patient.nom = this.patients.filter(x => x.id == this.rdv.patientId)[0].nom;
-    this.rdvForJsonServer.patient.prenom = this.patients.filter(x => x.id == this.rdv.patientId)[0].prenom;
-    this.rdvService.persist(this.rdvForJsonServer).subscribe(
+     this.rdv.medecinId = (this.role == "gp") ? this.rdv.medecinId : localStorage.getItem('id') ;
+     
+    this.rdvService.persist(this.rdv).subscribe(
       res => {
-        this.rdvs = [this.rdvForJsonServer, ...this.rdvs];
+        this.rdvs = [res, ...this.rdvs];
         this.formShow = false;
         this.alertAjout = true;
-
+        this.rdv = new Rdv();
       }
 
     )
   }
 
-  //For filter
-  rdvSearch: any = {
-    motif  : "",
-      date   :"",
-     debut  : "",
-      fin  : "",
-      etat  :"",
-      medecinId : "",
-      patient : {
-        id : "",
-        nom : "",
-        prenom : "" ,
+  getAllMedecins(){
+    this.userService.getMedecins().subscribe(
+      res => {
+        this.medecins = res;
+        console.log("les medeins: "+res);
       }
-}
-  searchDate : any;
-  searchPatient : any ;
-  searchDebut : any;
-  searchFin : any ;
-
+    );
+  }
+  
 
 
   showForm(){
@@ -156,18 +119,7 @@ export class ListRdvComponent implements OnInit {
     this.formShow = !this.formShow;
   }
   showFilter(){
-    this.rdvSearch = {
-      motif  : "",
-        date   :"",
-       debut  : "",
-        fin  : "",
-        etat  :"",
-        patient : {
-          id : "",
-          nom : "",
-          prenom : "" ,
-        }
-  }
+    this.rdvSearch = new Rdv();
     this.getAllRdv();
     this.formShow=false;
     this.filterShow = !this.filterShow;
@@ -195,23 +147,23 @@ export class ListRdvComponent implements OnInit {
  }
 
  getPatientName(id){
-  let patient :Patient = this.patients.filter(x => x.id === id)[0];
+  let patient :Patient = this.patients.filter(x => x.patientId === id)[0];
   return patient.nom + " " + patient.prenom;
 }
 
 annulerRdv(rdv){
+ 
   if(confirm("Voulez vous vraiment annuler ce Rendez vous ?")){
-    rdv.etat = "annulé";
+    rdv.state = "annulé";
+    rdv.patientId = rdv.patient.patientId;
+    rdv.medecinId = rdv.medecin.userID;
     this.rdvService.annuler(rdv).subscribe(
     res => {
       console.log(res);
+      this.rdv = new Rdv();
     }
   )
   }
-}
-
-traiter(rdv){
-
 }
 
 

@@ -9,7 +9,7 @@ export class RdvService {
 
   constructor(private http : HttpClient) { }
 
-  apiUrl = 'http://localhost:3000/rdvResponse'
+  apiUrl = 'http://localhost:8085/rdv'
 
   getRdvs(){
     return this.http.get(this.apiUrl);
@@ -24,16 +24,16 @@ export class RdvService {
   }
 
   getRdvsFixer(){
-    return this.http.get(`${this.apiUrl}?etat=fixé`);
+    return this.http.get(`${this.apiUrl}?state=fixé`);
   }
 
   filter(rdv){
     let filterUrl = 'http://localhost:3000/rdvResponse?'
     if(rdv.date.length>0) filterUrl += "&date="+rdv.date;
-    if(rdv.patient.id.length>0) filterUrl += "&patient.id="+rdv.patient.id;
-    if(rdv.etat.length>0) filterUrl += "&etat="+rdv.etat;
-    if(rdv.debut.length>0) filterUrl += "&debut="+rdv.debut;
-    if(rdv.fin.length>0) filterUrl += "&date="+rdv.fin;
+    if(rdv.patient.id.length>0) filterUrl += "&patient="+rdv.patient.patientId;
+    if(rdv.etat.length>0) filterUrl += "&state="+rdv.state;
+    if(rdv.debut.length>0) filterUrl += "&startTime="+rdv.startTime;
+    if(rdv.fin.length>0) filterUrl += "&endTime="+rdv.endTime;
 
 
     return this.http.get(filterUrl);
@@ -44,7 +44,7 @@ export class RdvService {
   }
 
   annuler(rdv){
-    return this.http.put(`${this.apiUrl}/${rdv.id}`,rdv);
+    return this.http.put(`${this.apiUrl}/${rdv.rdvId}`,rdv);
   }
 
 

@@ -15,22 +15,22 @@
         <div class="form-group row mx-auto mt-2">
             <label for="Patient" class="col-sm-2 col-form-label">Patient</label>
             <div class="col-sm-4">
-                <select class="form-control" id="Patient" [(ngModel)]="rdvSearch.patient.id">
+                <select class="form-control" id="Patient" [(ngModel)]="rdvSearch.patient.patientId">
                     <option selected disabled>Choisissez le patient</option>
-                    <option *ngFor="let patient of patients" [value]="patient.id">
-                        {{getPatientName(patient.id)}}
+                    <option *ngFor="let patient of patients" [value]="patient.patientId">
+                        {{getPatientName(patient.patientId)}}
                     </option>
                 </select>
             </div>
 
             <label for="etat" class="col-sm-2 col-form-label">Etat</label>
             <div class="col-sm-4">
-                <select class="form-control" id="etat" [(ngModel)]="rdvSearch.etat">
+                <select class="form-control" id="etat" [(ngModel)]="rdvSearch.state">
                     <option selected disabled>Choisissez l'etat</option>
                     <option value="fixé">Fixé</option>
-                    <option value="fait">Fait</option>
+                    <option value="validé">Validé</option>
                     <option value="annulé">Annulé</option>
-                    <option value="Reporté">Reporté</option>
+                    <option value="reporté">Reporté</option>
 
                 </select>
             </div>
@@ -42,11 +42,11 @@
             </div>
             <label for="debut" class="col-sm-1 col-form-label">De</label>
             <div class="col-sm-2">
-                <input type="time" class="form-control" id="debut" [(ngModel)]="rdvSearch.debut">
+                <input type="time" class="form-control" id="debut" [(ngModel)]="rdvSearch.startTime">
             </div>
             <label for="fin" class="col-sm-1 col-form-label">À</label>
             <div class="col-sm-2">
-                <input type="time" class="form-control" id="fin" [(ngModel)]="rdvSearch.fin">
+                <input type="time" class="form-control" id="fin" [(ngModel)]="rdvSearch.endTime">
             </div>
         </div>
 
@@ -62,20 +62,32 @@
         <legend>Créer un Rendez Vous</legend>
 
         <div class="form-group row mx-auto mt-2">
-            <label for="Patient" class="col-sm-2 col-form-label">Patient</label>
-            <div class="col-sm-4">
-                <select class="form-control" id="Patient" [(ngModel)]="rdv.patientId" required>
-                    <option selected disabled>Choisissez le patient</option>
-                    <option *ngFor="let patient of patients" [value]="patient.id">
-                        {{getPatientName(patient.id)}}
-                    </option>
-                </select>
-            </div>
-
             <label for="Motif" class="col-sm-2 col-form-label">Motif</label>
             <div class="col-sm-4">
                 <input type="text" class="form-control" id="Motif" placeholder="Motif du Rendez vous" [(ngModel)]="rdv.motif" required>
             </div>
+
+            <label for="Patient" class="col-sm-1 col-form-label">Patient</label>
+            <div class="col-sm-2">
+                <select class="form-control" id="Patient" [(ngModel)]="rdv.patientId" required>
+                    <option selected disabled>Choisissez le patient</option>
+                    <option *ngFor="let patient of patients" [value]="patient.patientId">
+                        {{getPatientName(patient.patientId)}}
+                    </option>
+                </select>
+            </div>
+
+            <label *ngIf="role == 'gp'" for="medecin" class="col-sm-1 col-form-label">Medecin</label>
+            <div class="col-sm-2" *ngIf="role == 'gp'">
+                <select class="form-control" id="medecin" [(ngModel)]="rdv.medecinId" required>
+                    <option selected disabled>Choisissez le medecin</option>
+                    <option *ngFor="let medecin of medecins" [value]="medecin.userID">
+                        {{medecin.firstName}} {{medecin.lastName}}
+                    </option>
+                </select>
+            </div>
+
+
         </div>
         <div class="form-group row mx-auto mt-2">
             <label for="date" class="col-sm-2 col-form-label">Date</label>
@@ -84,11 +96,11 @@
             </div>
             <label for="debut" class="col-sm-1 col-form-label">De</label>
             <div class="col-sm-2">
-                <input type="time" class="form-control" id="debut" [(ngModel)]="rdv.debut" required>
+                <input type="time" class="form-control" id="debut" [(ngModel)]="rdv.startTime" required>
             </div>
             <label for="fin" class="col-sm-1 col-form-label">À</label>
             <div class="col-sm-2">
-                <input type="time" class="form-control" id="fin" [(ngModel)]="rdv.fin" required>
+                <input type="time" class="form-control" id="fin" [(ngModel)]="rdv.endTime" required>
             </div>
         </div>
 
@@ -96,23 +108,23 @@
 
     </div>
     <div class="row">
-        <div *ngFor="let rdv of rdvs" class="card col-4 mb-3 mx-auto" style="max-width: 20rem;" [ngClass]="{'border-warning': rdv.etat == 'Reporté', 'border-info': rdv.etat == 'fixé', 'border-success': rdv.etat == 'fait', 'border-danger': rdv.etat == 'annulé'}">
+        <div *ngFor="let rdv of rdvs" class="card col-4 mb-3 mx-auto" style="max-width: 20rem;" [ngClass]="{'border-warning': rdv.state == 'reporté', 'border-info': rdv.state == 'fixé', 'border-success': rdv.state == 'validé', 'border-danger': rdv.state == 'annulé'}">
 
             <div class="card-header">
-                <span *ngIf="rdv.etat == 'Reporté'" class="badge badge-warning badge-pill float-left">Reporté</span>
-                <span *ngIf="rdv.etat == 'fait'" class="badge badge-success badge-pill float-left">Traité</span>
-                <span *ngIf="rdv.etat == 'annulé'" class="badge badge-danger badge-pill float-left">Annulé</span>
-                <span (click)="annulerRdv(rdv)" *ngIf="rdv.etat == 'fixé'" class="badge badge-danger badge-pill float-left" style="cursor: pointer;">x</span> {{ rdv.patient.nom }} {{ rdv.patient.prenom }}
-                <span *ngIf="rdv.etat == 'fixé'" class="badge badge-info badge-pill float-right" style="cursor: pointer;">
+                <span *ngIf="rdv.state == 'reporté'" class="badge badge-warning badge-pill float-left">Reporté</span>
+                <span *ngIf="rdv.state == 'validé'" class="badge badge-success badge-pill float-left">Validé</span>
+                <span *ngIf="rdv.state == 'annulé'" class="badge badge-danger badge-pill float-left">Annulé</span>
+                <span (click)="annulerRdv(rdv)" *ngIf="rdv.state == 'fixé'" class="badge badge-danger badge-pill float-left" style="cursor: pointer;">x</span> {{ rdv.patient.nom }} {{ rdv.patient.prenom }}
+                <span (click)="reportDateShow=rdv.rdvId" *ngIf="rdv.state == 'fixé' || rdv.state == 'reporté'" class="badge badge-info badge-pill float-right" style="cursor: pointer;">
                     <i class="fas fa-notes-medical"></i>
                 </span>
 
             </div>
             <div class="card-body">
-                <h4 class="card-title">{{rdv.date}} <br> de {{rdv.debut}} à {{rdv.fin}}</h4>
+                <h4 class="card-title">{{rdv.date}} <br> de {{rdv.startTime}} à {{rdv.endTime}}</h4>
                 <p class="card-text"> {{rdv.motif}}</p>
             </div>
-            <div *ngIf="rdv.etat == 'fixé'" class="card-footer text-muted row">
+            <div *ngIf=" (rdv.state == 'fixé' || rdv.state == 'reporté') && reportDateShow == rdv.rdvId " class="card-footer text-muted row">
                 <input style="width: 70%; " type="date" class="form-control" id="date" [(ngModel)]="dateReport" type="date">
                 <span (click)="reporter(rdv)" style="cursor: pointer;display: block;height: 50%;position: relative;top: 25%;" class="badge badge-info badge-pill float-right">Reporter</span>
             </div>
