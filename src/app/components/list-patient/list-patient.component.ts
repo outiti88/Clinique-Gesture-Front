@@ -40,14 +40,16 @@ export class ListPatientComponent implements OnInit {
   medecins : any = [] ;
 
   patient : Patient = new Patient();
-
+  addMedecin = false;
   patients : any = [] ;
   formPatient = false ;
   ajouter = false;
   edit = false;
   alertAjout = false;
   alertEdit = false;
-
+  alertErreur = false;
+  erreurMsg = "";
+  nvMedecin : any ="";
 
   getMedecins(){
     this.userService.getMedecins().subscribe((res) => {
@@ -69,16 +71,17 @@ export class ListPatientComponent implements OnInit {
   }
 
   addPatient(){
-    this.patient.usersIds.push( localStorage.getItem('id'));
-
+    if(localStorage.getItem('role')=="medecin"){ this.nvMedecin = localStorage.getItem('id');}
+    this.patient.usersIds.push(this.nvMedecin);
     this.patientService.persist(this.patient).subscribe(
-
       res => {
-        this.patients = [this.patient, ...this.patients];
+        this.patients = [res, ...this.patients];
         this.formPatient = false;
         this.alertAjout = true;
       },
       (error) => {    
+        this.alertErreur = true;
+        this.erreurMsg = error.error.message;
         console.log("erreur: ", error.error.message)
         
       }
@@ -86,6 +89,16 @@ export class ListPatientComponent implements OnInit {
 
   }
   
+  addMedecinForPatient(){
+    var medecin = this.medecins.filter(x => x.userID === this.nvMedecin)[0];
+    this.patient.users.push(medecin);
+    this.addMedecin = false;
+  }
+
+  deletMedecin(id){
+    this.patient.users = this.patient.users.filter(medecin => medecin.userID != id);
+  }
+
   updatePatient(){
     this.patient.usersIds = _.map(this.patient.users,'userID');
     this.patientService.update(this.patient)
@@ -101,9 +114,9 @@ export class ListPatientComponent implements OnInit {
       if(confirm("Voulez vous vraiment supprimer: "+patient.nom)){
 
         if(localStorage.getItem('role') == 'gp'){
-          this.patientService.delete(patient.id)
+          this.patientService.delete(patient.patientId)
           .subscribe(() => {
-            this.patients = this.patients.filter(patient => patient.patientId != patient.id);
+            this.patients = this.patients.filter(p => p.patientId != patient.patientId);
             alert('supprimer');
             });
         }
@@ -114,15 +127,10 @@ export class ListPatientComponent implements OnInit {
           patient.usersIds = medecin_id;
           this.patientService.update(patient)
           .subscribe(() => {
-            this.patients = this.patients.filter(patient => patient.patientId != patient.id);
+            this.patients = this.patients.filter(p => p.patientId != patient.patientId);
             alert('supprimer');
             });
         }
-
-
-        
-
-
         }
   }
 
@@ -131,6 +139,9 @@ export class ListPatientComponent implements OnInit {
     this.formPatient = !this.formPatient;
     this.edit = false;
     this.ajouter = true;
+    this.alertAjout = false;
+    this.alertEdit = false;
+    this.alertErreur = false;
   }
 
   editPatient(patient){
@@ -138,6 +149,9 @@ export class ListPatientComponent implements OnInit {
     this.ajouter = false;
     this.edit = true ;
     this.patient = patient;
+    this.alertAjout = false;
+    this.alertEdit = false;
+    this.alertErreur = false;
   }
 
 }

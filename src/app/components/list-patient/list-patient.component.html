@@ -14,6 +14,12 @@
             <h4 class="alert-heading">Le patient {{patient.nom}} {{patient.prenom}} à été Bien Modifié !</h4>
         </div>
     </div>
+    <div class="container row my-12" *ngIf="alertErreur">
+        <div class="alert alert-dismissible alert-danger" style="width: 100%;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <h4 class="alert-heading">{{erreurMsg}}</h4>
+        </div>
+    </div>
 
     <a (click)="add()" class="btn btn-success mb-5 mx-auto mb-5">Ajouter</a>
 
@@ -37,11 +43,46 @@
                 <td><input style="margin: 0; padding:0" class="form-control" type="text" [(ngModel)]="patient.telephone" required></td>
                 <td><input style="margin: 0; padding:0" class="form-control" type="text" [(ngModel)]="patient.adresse" required></td>
                 <td><input style="margin: 0; padding:0" class="form-control" type="text" [(ngModel)]="patient.cin" required></td>
-                <td *ngIf="role != 'medecin'">
-                    <select class="form-control" [(ngModel)]="patient.usersIds">
-                        <option *ngFor="let medecin of medecins" [value]="medecin.userID">
-                            {{getMedecinByFilter(medecin.userID)}}
-                        </option>
+                <td *ngIf="role != 'medecin' && edit">
+                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" [attr.data-target]="'#edit'+ patient.cin">
+                        {{patient.users.length}} Medecin(s) 
+                      </button>
+                    <div class="modal fade" id="edit{{patient.cin}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Liste des Medecins
+                                        <span (click)="addMedecin = !addMedecin" class="badge badge-primary badge-pill"><i class="fas fa-plus"></i></span>
+                                    </h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                                </div>
+                                <div class="modal-body">
+                                    <select (change)='addMedecinForPatient()' *ngIf="addMedecin" class="form-control" [(ngModel)]="nvMedecin">
+                                        <option selected disabled>Choisissez le medecin</option>
+                                        <option *ngFor="let medecin of medecins" [value]="medecin.userID">{{medecin.firstName}} {{medecin.lastName}}</option>
+                                    </select>
+                                    <ul class="list-group">
+                                        <li *ngFor="let medecin of patient.users" class="list-group-item d-flex justify-content-between align-items-center">
+                                            {{medecin.firstName}} {{medecin.lastName}}
+                                            <span (click)="deletMedecin(medecin.userID)" class="badge badge-primary badge-pill"><i class="fas fa-trash"></i></span>
+
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Valider</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+
+                <td *ngIf="role != 'medecin' && ajouter">
+                    <select (change)='addMedecinForPatient()' class="form-control" [(ngModel)]="nvMedecin">
+                        <option selected disabled>Choisissez le medecin</option>
+                        <option *ngFor="let medecin of medecins" [value]="medecin.userID">{{medecin.firstName}} {{medecin.lastName}}</option>
                     </select>
                 </td>
 
@@ -54,7 +95,34 @@
                 <td>{{patient.telephone}} </td>
                 <td>{{patient.adresse}} </td>
                 <td>{{patient.cin}} </td>
-                <td *ngIf="role != 'medecin'">{{getMedecinByFilter(patient.medecin_id)}} </td>
+                <td *ngIf="role != 'medecin'">
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" [attr.data-target]="'#'+ patient.cin">
+                        <span *ngIf="patient.users.length>0">{{patient.users.length}} Medecin(s) </span>
+                        <span *ngIf="patient.users.length == 0">Aucun Medecin </span>
+                      </button>
+                    <div class="modal fade" id="{{patient.cin}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Liste des Medecins</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                                </div>
+                                <div class="modal-body">
+                                    <ul class="list-group">
+                                        <li *ngFor="let medecin of patient.users" class="list-group-item d-flex justify-content-between align-items-center">
+                                            {{medecin.firstName}} {{medecin.lastName}}
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
 
                 <td>
                     <a (click)="editPatient(patient)" class="btn btn-warning btn-sm">
