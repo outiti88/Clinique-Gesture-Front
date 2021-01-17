@@ -14,7 +14,7 @@
         <div class="form-group row mx-auto mt-2">
             <label for="type" class="col-sm-2 col-form-label">Type</label>
             <div class="col-sm-4">
-                <input placeholder="Type de scanner" type="text" id="type" class="form-control" [(ngModel)]="scanner.type" required>
+                <input placeholder="Type de scanner" type="text" id="type" class="form-control" [(ngModel)]="scanner.name" required>
             </div>
             <label for="price" class="col-sm-2 col-form-label">prix</label>
             <div class="col-sm-4">
@@ -32,7 +32,7 @@
     <div class="row">
         <ul class="list-group col-6 mt-5" *ngFor="let scanner of scanners">
             <li (click)="modifier(scanner)" class="list-group-item d-flex justify-content-between align-items-center">
-                <span (click)="delete(scanner)" class="badge badge-primary badge-pill" style="cursor: pointer;">x</span> <b>{{scanner.type}}</b>
+                <span (click)="delete(scanner)" class="badge badge-primary badge-pill" style="cursor: pointer;">x</span> <b>{{scanner.name}}</b>
                 <span class="badge badge-primary badge-pill">{{scanner.price}} MAD</span>
             </li>
         </ul>

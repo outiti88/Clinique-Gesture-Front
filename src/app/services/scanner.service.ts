@@ -9,7 +9,7 @@ export class ScannerService {
 
   constructor(private http : HttpClient) { }
 
-  apiUrl = 'http://localhost:3000/scanners' ;
+  apiUrl = 'http://localhost:8085/scanner' ;
 
   persist(scanner : Scanner){
     return this.http.post(this.apiUrl, scanner);
@@ -20,7 +20,7 @@ export class ScannerService {
   }
 
   update(scanner){
-    return this.http.put(`${this.apiUrl}/${scanner.id}`,scanner);
+    return this.http.put(`${this.apiUrl}/${scanner.scannerId}`,scanner);
   }
 
   delete(id){

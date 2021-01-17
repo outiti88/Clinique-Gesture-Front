@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ScannerService } from 'src/app/services/scanner.service';
 import { Router } from '@angular/router';
+import { Scanner } from 'src/app/models/scanner';
 
 @Component({
   selector: 'app-list-scanners',
@@ -22,18 +23,12 @@ export class ListScannersComponent implements OnInit {
   ajoutScanner = false ;
   editScanner = false;
 
-  scanner : any = {
-    type : "",
-    price : 0
-  }
+  scanner : Scanner ;
 
   scanners : any = [] ;
 
   ajouterScanner(){
-    this.scanner = {
-      type : "",
-      price : 0 
-    }
+    this.scanner = new Scanner();
     this.formShow = !this.formShow;
     this.ajoutScanner = true;
     this.editScanner = false;
@@ -74,11 +69,11 @@ export class ListScannersComponent implements OnInit {
   delete(scanner){
     this.formShow = false;
     this.scanner = scanner;
-    if(confirm("Voulez vous vraiment supprimer: "+this.scanner.type)){
+    if(confirm("Voulez vous vraiment supprimer: "+scanner.name)){
       this.formShow = false;
-        this.scannerService.delete(this.scanner.id).subscribe(
+        this.scannerService.delete(this.scanner.scannerId).subscribe(
           res => {
-            this.scanners = this.scanners.filter(scan => scan.id != this.scanner.id);
+            this.scanners = this.scanners.filter(scan => scan.scannerId != this.scanner.scannerId);
             this.formShow = false ;
           }
 
