@@ -33,7 +33,7 @@
             </div>
             <label for="categorie" class="col-sm-1 col-form-label">Categorie</label>
             <div class="col-sm-2">
-                <select class="form-control" id="categorie" [(ngModel)]="medicament.categorie" required>
+                <select class="form-control" id="categorie" [(ngModel)]="medicament.category" required>
                 <option value="rhumatologie">Rhumatologie</option>
                 <option value="pediatrie">Pédiatrie</option>
                 <option value="neurologie">Neurologie</option>
@@ -44,16 +44,20 @@
 
         </div>
 
-        <button *ngIf="editMedicament" class="btn btn-warning align-cen" (click)="edit(medicament)">Modifier</button>
+        <button *ngIf="editMedicament" class="btn btn-warning align-cen" (click)="edit(medicament,medicament.medicamentId)">Modifier</button>
         <button *ngIf="ajoutMedicament" class="btn btn-success align-cen" (click)="addMedicament()">Ajouter</button>
 
     </div>
-    <div class="row">
+    <div class="row mb-5">
         <ul class="list-group col-4 mt-5">
             <h3 class="text-success">Rhumatologie</h3>
             <li (click)="modifier(medi)" class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let medi of rhumatologie">
                 <span (click)="delete(medi)" class="badge badge-primary badge-pill" style="cursor: pointer;">x</span> <b>{{medi.name}}</b>({{medi.type}})
                 <span class="badge badge-success badge-pill">{{medi.price}} MAD</span>
+            </li>
+
+            <li *ngIf="chargement || rhumatologieChargement" class="list-group-item d-flex justify-content-between align-items-center d-flex justify-content-around">
+                <div class="spinner-border text-success" style="width: 4rem;height: 4rem;"></div>
             </li>
         </ul>
         <ul class="list-group col-4 mt-5">
@@ -62,12 +66,20 @@
                 <span (click)="delete(medi)" class="badge badge-primary badge-pill" style="cursor: pointer;">x</span><b>{{medi.name}}</b>({{medi.type}})
                 <span class="badge badge-primary badge-pill">{{medi.price}} MAD</span>
             </li>
+
+            <li *ngIf="chargement || orthopedieChargement" class="list-group-item d-flex justify-content-between align-items-center d-flex justify-content-around">
+                <div class="spinner-border text-primary" style="width: 4rem;height: 4rem;"></div>
+            </li>
         </ul>
         <ul class="list-group col-4 mt-5">
             <h3 class="text-warning">Cardiologie</h3>
             <li (click)="modifier(medi)" class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let medi of cardiologie">
                 <span (click)="delete(medi)" class="badge badge-primary badge-pill" style="cursor: pointer;">x</span><b>{{medi.name}}</b>({{medi.type}})
                 <span class="badge badge-warning badge-pill">{{medi.price}} MAD</span>
+            </li>
+
+            <li *ngIf="chargement || cardiologieChargement" class="list-group-item d-flex justify-content-between align-items-center d-flex justify-content-around">
+                <div class="spinner-border text-warning" style="width: 4rem;height: 4rem;"></div>
             </li>
         </ul>
         <ul class="list-group col-4 mt-5">
@@ -76,12 +88,21 @@
                 <span (click)="delete(medi)" class="badge badge-primary badge-pill" style="cursor: pointer;">x</span><b>{{medi.name}}</b>({{medi.type}})
                 <span class="badge badge-danger badge-pill">{{medi.price}} MAD</span>
             </li>
+
+            <li *ngIf="chargement || pediatrieChargement" class="list-group-item d-flex justify-content-between align-items-center d-flex justify-content-around">
+                <div class="spinner-border text-danger" style="width: 4rem;height: 4rem;"></div>
+            </li>
+
         </ul>
         <ul class="list-group col-4 mt-5">
             <h3 class="text-info">Neurologie</h3>
             <li (click)="modifier(medi)" class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let medi of neurologie">
                 <span (click)="delete(medi)" class="badge badge-primary badge-pill" style="cursor: pointer;">x</span><b>{{medi.name}}</b>({{medi.type}})
                 <span class="badge badge-info badge-pill">{{medi.price}} MAD</span>
+            </li>
+
+            <li *ngIf="chargement || neurologieChargement" class="list-group-item d-flex justify-content-between align-items-center d-flex justify-content-around">
+                <div class="spinner-border text-info" style="width: 4rem;height: 4rem;"></div>
             </li>
         </ul>
     </div>

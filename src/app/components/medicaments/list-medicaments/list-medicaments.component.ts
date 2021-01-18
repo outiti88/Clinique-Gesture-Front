@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MedicamentService } from 'src/app/services/medicament.service';
 import { Router } from '@angular/router';
+import { Medicament } from 'src/app/models/medicament';
+
 
 @Component({
   selector: 'app-list-medicaments',
@@ -18,6 +20,13 @@ export class ListMedicamentsComponent implements OnInit {
     this.getAll();
   }
 
+  chargement=false;
+  neurologieChargement = false;
+  pediatrieChargement = false;
+  cardiologieChargement = false;
+  orthopedieChargement = false;
+  rhumatologieChargement = false;
+
   formShow = false;
   ajoutMedicament = false;
   editMedicament = false ;
@@ -29,84 +38,101 @@ export class ListMedicamentsComponent implements OnInit {
   pediatrie : any = [];
   neurologie : any = [];
 
-  medicament : any = {
-    name : "",
-    price : 0,
-    categorie : "",
-    type : ""
-  }
+  medicament : Medicament ;
 
   ajouterMedicament(){
-    this.medicament = {
-      name : "",
-      price : 0,
-      categorie : "",
-      type : ""
-    }
+    this.medicament = new Medicament();
     this.formShow = !this.formShow;
     this.ajoutMedicament = true;
     this.editMedicament = false;
   }
 
   addMedicament(){
+
+    switch (this.medicament.category) {
+      case  "rhumatologie" : {
+        this.rhumatologieChargement = true;
+        break;
+      }
+      case  "cardiologie" : {
+        this.cardiologieChargement = true;
+        break;
+      }
+      case  "orthopedie" : {
+        this.orthopedieChargement = true;
+        break;
+      }
+      case  "pediatrie" : {
+        this.pediatrieChargement = true;
+        break;
+      }
+      case  "neurologie" : {
+        this.neurologieChargement = true;
+        break;
+      }
+    }
+
+
     this.medicamentService.persist(this.medicament).subscribe(
       res => {
         this.frontAdd(res , this.medicament);
         this.formShow = false ;
+        this.rhumatologieChargement = false;
+        this.cardiologieChargement = false;
+        this.orthopedieChargement = false;
+        this.pediatrieChargement = false;
+        this.neurologieChargement = false;
+
       }
     )
   }
 
   getAll(){
-    this.getRhumatologie();
-    this.getOrthopedie();
-    this.getCardiologie();
-    this.getPediatrie();
-    this.getNeurologie();
+    this.chargement = true;
+    this.medicamentService.getAll().subscribe(
+      res => {
+        this.chargement = false;
+        this.medicaments =  res;
+        this.getRhumatologie();
+        this.getOrthopedie();
+        this.getNeurologie();
+        this.getPediatrie();
+        this.getCardiologie();
+      }
+    )
   }
 
   getRhumatologie(){
-    this.medicamentService.getRhumatologie().subscribe(
-      res => {
-        this.rhumatologie = res ;
-      }
-    )
+    
+    this.rhumatologie =  this.medicaments.filter(medi => medi.category == "rhumatologie") ;
+    
   }
 
   getOrthopedie(){
-    this.medicamentService.getOrthopedie().subscribe(
-      res => {
-        this.orthopedie = res ;
-      }
-    )
+    this.orthopedie = this.medicaments.filter(medi => medi.category == "orthopedie") ;
+
   }
 
   getNeurologie(){
-    this.medicamentService.getNeurologie().subscribe(
-      res => {
-        this.neurologie = res ;
-      }
-    )
+    this.neurologie = this.medicaments.filter(medi => medi.category == "neurologie") ;
+
   }
 
   getPediatrie(){
-    this.medicamentService.getPediatrie().subscribe(
-      res => {
-        this.pediatrie = res ;
-      }
-    )
+    this.pediatrie = this.medicaments.filter(medi => medi.category == "pediatrie") ;
+
   }
 
   getCardiologie(){
-    this.medicamentService.getCardiologie().subscribe(
-      res => {
-        this.cardiologie = res ;
-      }
-    )
+  
+    this.cardiologie = this.medicaments.filter(medi => medi.category == "cardiologie") ;
+
+
   }
 
-  edit(medicament){
-    this.medicamentService.update(medicament).subscribe(
+  edit(medicament,id){
+    console.log(id);
+    this.medicamentService.update(medicament , id).subscribe(
       res => {
         this.frontDelete(res);
         this.frontAdd(res , medicament);
@@ -127,7 +153,7 @@ export class ListMedicamentsComponent implements OnInit {
     this.medicament = medicament;
     if(confirm("Voulez vous vraiment supprimer: "+this.medicament.name)){
       this.formShow = false;
-        this.medicamentService.delete(this.medicament.id).subscribe(
+        this.medicamentService.delete(this.medicament.medicamentId).subscribe(
           res => {
             this.frontDelete(this.medicament);
             this.formShow = false ;
@@ -138,17 +164,16 @@ export class ListMedicamentsComponent implements OnInit {
 }
 
 frontDelete(medicament){
-      this.rhumatologie = this.rhumatologie.filter(medi => medi.id != medicament.id);
-      this.cardiologie = this.cardiologie.filter(medi => medi.id != medicament.id);
-      this.orthopedie = this.orthopedie.filter(medi => medi.id != medicament.id);
-      this.pediatrie = this.pediatrie.filter(medi => medi.id != medicament.id);
-      this.neurologie = this.neurologie.filter(medi => medi.id != medicament.id);
+      this.rhumatologie = this.rhumatologie.filter(medi => medi.medicamentId != medicament.medicamentId);
+      this.cardiologie = this.cardiologie.filter(medi => medi.medicamentId != medicament.medicamentId);
+      this.orthopedie = this.orthopedie.filter(medi => medi.medicamentId != medicament.medicamentId);
+      this.pediatrie = this.pediatrie.filter(medi => medi.medicamentId != medicament.medicamentId);
+      this.neurologie = this.neurologie.filter(medi => medi.medicamentId != medicament.medicamentId);
 
-  this.medicaments = this.pediatrie.filter(medi => medi.id != this.medicament.id);
 }
 
 frontAdd(res , medicament){
-  switch (medicament.categorie) {
+  switch (medicament.category) {
     case  "rhumatologie" : {
       this.rhumatologie = [res, ...this.rhumatologie];
       break;
@@ -170,7 +195,6 @@ frontAdd(res , medicament){
       break;
     }
   }
-  this.medicaments = [res , ...this.medicaments];
 }
 
 

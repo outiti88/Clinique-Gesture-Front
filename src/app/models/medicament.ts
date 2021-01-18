@@ -2,6 +2,6 @@ export class Medicament{
     medicamentId ?: string;
     name: string;
     price : number;
-    categorie : string;
+    category : string;
     type : string;
 }

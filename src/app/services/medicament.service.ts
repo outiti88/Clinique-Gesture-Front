@@ -9,13 +9,13 @@ export class MedicamentService {
 
   constructor(private http : HttpClient) { }
 
-  apiUrl = 'http://localhost:3000/medicamentsAdd' ;
+  apiUrl = 'http://localhost:8085/medicaments' ;
 
   persist(medicament : Medicament){
     return this.http.post(this.apiUrl, medicament);
   }
 
-  getRhumatologie(){
+/*   getRhumatologie(){
     return this.http.get(`${this.apiUrl}?categorie=rhumatologie`);
   }
 
@@ -33,7 +33,7 @@ export class MedicamentService {
   getNeurologie(){
     return this.http.get(`${this.apiUrl}?categorie=neurologie`);
 
-  }
+  } */
 
   getMedicament(id){
     return this.http.get(`${this.apiUrl}/${id}`)
@@ -44,8 +44,8 @@ export class MedicamentService {
 
   }
 
-  update(medicament){
-    return this.http.put(`${this.apiUrl}/${medicament.id}`,medicament);
+  update(medicament, id){
+    return this.http.put(`${this.apiUrl}/${id}`,medicament);
   }
 
   delete(id){
