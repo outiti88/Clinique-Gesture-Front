@@ -22,6 +22,7 @@ import { ListScannersComponent } from './components/scanners/list-scanners/list-
 import { ListMedicamentsComponent } from './components/medicaments/list-medicaments/list-medicaments.component';
 import { ListSoinsComponent } from './components/soins/list-soins/list-soins.component';
 import { ListDocumentsComponent } from './components/document/list-documents/list-documents.component';
+import { FacturesComponent } from './components/factures/factures.component';
 
 
 
@@ -50,6 +51,10 @@ const routes: Routes =[
 
   { path : "Dossiers"  , children:[
     { path : "" , component : ListDocumentsComponent}
+  ] , canActivate:[AuthGuard]} , 
+
+  { path : "Factures"  , children:[
+    { path : "" , component : FacturesComponent}
   ] , canActivate:[AuthGuard]} , 
 
    { path : "Soins"  , children:[
@@ -91,7 +96,8 @@ const routes: Routes =[
     ListScannersComponent,
     ListMedicamentsComponent,
     ListSoinsComponent,
-    ListDocumentsComponent
+    ListDocumentsComponent,
+    FacturesComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

@@ -23,9 +23,12 @@
 
                 <div class="form-group">
                     <label for="role">Role*</label>
-                    <input class="form-control" autocomplete="off" formControlName="role" type="text" id="role">
+                    <select class="form-control" autocomplete="off" formControlName="role" id="role">
+                        <option value="admin">Administrateur</option>
+                        <option value="gp">Gestion de personnel</option>
+                        <option value="medecin">Medecin</option>
+                    </select>
                 </div>
-
 
                 <div class="form-group">
                     <label for="email">Email*</label>

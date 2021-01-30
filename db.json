@@ -1,503 +1,94 @@
 {
-  "scanners": [
-    {
-      "type": "SCANNER ABDOMINO PELVIEN",
-      "price": "455",
-      "id": 1
-    },
-    {
-      "type": "ANGIOSCANNER",
-      "price": "540",
-      "id": 2
-    },
-    {
-      "type": "SCANNER DES SINUS",
-      "price": "380",
-      "id": 3
-    },
-    {
-      "type": "SCANNER CÉRÉBRAL",
-      "price": "480",
-      "id": 4
-    }
-  ],
-  "medicamentsAdd": [
-    {
-      "name": "Rhumix",
-      "price": 200,
-      "categorie": "neurologie",
-      "type": "COMPRIMÉ",
-      "id": 1
-    },
-    {
-      "name": "Medi 1",
-      "price": 120,
-      "categorie": "pediatrie",
-      "type": "LIQUIDES",
-      "id": 2
-    },
-    {
-      "name": "test",
-      "price": 200,
-      "categorie": "cardiologie",
-      "type": "TRANSDERMIQUES",
-      "id": 5
-    },
-    {
-      "name": "supradine",
-      "price": 150,
-      "categorie": "rhumatologie",
-      "type": "GÉLULE",
-      "id": 6
-    },
-    {
-      "name": "medica3",
-      "price": 225,
-      "categorie": "orthopedie",
-      "type": "LIQUIDES",
-      "id": 7
-    }
-  ],
-  "soins": [
-    {
-      "type": "test Soin",
-      "price": "250",
-      "medecinId": "5494016106014502850264223533147581049315127404556611442731",
-      "id": 1
-    },
-    {
-      "type": "soin ouassim",
-      "price": "420",
-      "medecinId": "14354199113158312751313951264315113834403049225531571344492235",
-      "id": 2
-    },
-    {
-      "type": "SCANNER ABDOMINO PELVIEN",
-      "price": "120",
-      "medecinId": "2853575017323250142844915156135424841242151293315406501936237",
-      "id": 3
-    },
-    {
-      "type": "ANGIOSCANNER",
-      "price": "520",
-      "medecinId": "2853575017323250142844915156135424841242151293315406501936237",
-      "id": 4
-    },
-    {
-      "type": "test",
-      "price": "220",
-      "medecinId": "2853575017323250142844915156135424841242151293315406501936237",
-      "id": 5
-    },
-    {
-      "type": "test soin",
-      "price": "220",
-      "medecinId": "54356238151444225041485215278358562113455261116144032616",
-      "id": 6
-    },
-    {
-      "type": "Control",
-      "price": "150",
-      "medecinId": "54356238151444225041485215278358562113455261116144032616",
-      "id": 7
-    }
-  ],
-  "rdvs": [],
-  "rdvResponse": [
-    {
-      "patientId": "",
-      "motif": "dddd",
-      "date": "2021-01-11",
-      "debut": "23:18",
-      "fin": "00:18",
-      "medecinId": "2853575017323250142844915156135424841242151293315406501936237",
-      "etat": "annulé",
-      "patient": {
-        "id": "1",
-        "nom": "karim",
-        "prenom": "ahmadi"
-      },
-      "id": 1
-    },
-    {
-      "patientId": "",
-      "motif": "Control",
-      "date": "2021-01-15",
-      "debut": "21:20",
-      "fin": "22:20",
-      "medecinId": "2853575017323250142844915156135424841242151293315406501936237",
-      "etat": "Reporté",
-      "patient": {
-        "id": "2",
-        "nom": "tahiri",
-        "prenom": "hassan"
-      },
-      "id": 2
-    },
-    {
-      "motif": "viste medicale",
-      "date": "2021-01-14",
-      "debut": "14:27",
-      "fin": "15:28",
-      "medecinId": "54356238151444225041485215278358562113455261116144032616",
-      "etat": "annulé",
-      "patient": {
-        "id": "1",
-        "nom": "karim",
-        "prenom": "ahmadi"
-      },
-      "id": 3
-    },
-    {
-      "motif": "test",
-      "date": "2021-01-14",
-      "debut": "22:37",
-      "fin": "23:37",
-      "medecinId": "54356238151444225041485215278358562113455261116144032616",
-      "etat": "Reporté",
-      "patient": {
-        "id": "1",
-        "nom": "karim",
-        "prenom": "ahmadi"
-      },
-      "id": 4
-    },
-    {
-      "motif": "test dossier",
-      "date": "2021-01-30",
-      "debut": "04:13",
-      "fin": "05:13",
-      "medecinId": "54356238151444225041485215278358562113455261116144032616",
-      "etat": "fait",
-      "patient": {
-        "id": "1",
-        "nom": "karim",
-        "prenom": "ahmadi"
-      },
-      "id": 5
-    },
-    {
-      "motif": "TEST",
-      "date": "2021-01-17",
-      "debut": "12:51",
-      "fin": "13:51",
-      "medecinId": "54356238151444225041485215278358562113455261116144032616",
-      "etat": "fait",
-      "patient": {
-        "id": "1",
-        "nom": "karim",
-        "prenom": "ahmadi"
-      },
-      "id": 6
-    }
-  ],
   "documents": [
     {
-      "soins": [
-        {
-          "id": "7"
-        }
-      ],
-      "medicaments": [
-        {
-          "id": "5",
-          "quantite": 1
-        }
-      ],
       "scanners": [
         {
-          "id": "1"
-        }
-      ],
-      "id": 1
-    },
-    {
-      "scanners": [
-        {
-          "id": "2"
+          "scannerId": "256048497186025559421424354648503256885971273917381249929"
         }
       ],
       "soins": [
         {
-          "id": "7"
+          "soinId": "5449438955542438504633926442913232654306281727233025413946"
         }
       ],
       "medicaments": [
         {
-          "id": "1",
-          "quantite": 2
-        }
-      ],
-      "id": 2
-    },
-    {
-      "scanners": [
-        {
-          "id": "2"
-        }
-      ],
-      "soins": [
-        {
-          "id": "6"
-        }
-      ],
-      "medicaments": [
-        {
-          "id": "6",
+          "medicamentId": "462611535925127299535202005531418501760144522151347242949",
           "quantite": 1
         },
         {
-          "id": "1",
+          "medicamentId": "840123212133416430133857301345948161363018304213105139605134",
           "quantite": 1
         }
       ],
+      "rdvId": "148505955614345354424914514271037574048343653167263334940",
+      "id": 3
+    },
+    {
+      "scannersIds": [
+        {
+          "scannerId": "392414245729531446036685429363142022555928513348385147302910"
+        }
+      ],
+      "soinsIds": [
+        {
+          "soinId": "195732171844392216353137101426503494754182248611459281146484527"
+        }
+      ],
+      "medicamentsIds": [
+        {
+          "medicamentId": "32157405822332605454109486363338294925402411252472627272022",
+          "quantite": 1
+        }
+      ],
+      "rdvId": "174051212322553333215630241491222237112917505229245927284638",
       "id": 4
     },
     {
-      "scanners": [
-        {
-          "id": "2"
-        },
-        {
-          "id": "2"
-        }
+      "scannersIds": [],
+      "soinsIds": [],
+      "medicamentsIds": [
+        "4232104482617154125016201739183438242416370454193655335830",
+        "32157405822332605454109486363338294925402411252472627272022"
       ],
-      "soins": [
-        {
-          "id": "6"
-        }
-      ],
-      "medicaments": [
-        {
-          "id": "6",
-          "quantite": 3
-        },
-        {
-          "id": "7",
-          "quantite": 1
-        },
-        {
-          "id": "6",
-          "quantite": 2
-        },
-        {
-          "id": "1",
-          "quantite": 2
-        }
-      ],
+      "rdvId": "3051521413536048421623442739614651540414922244660460262106",
       "id": 5
     },
     {
-      "scanners": [
-        {
-          "id": "2"
-        }
+      "scannersIds": [
+        null
       ],
-      "soins": [
-        {
-          "id": "7"
-        }
+      "soinsIds": [
+        null
       ],
-      "medicaments": [
-        {
-          "id": "6",
-          "quantite": 1
-        },
-        {
-          "id": "1",
-          "quantite": 2
-        }
+      "medicamentsIds": [
+        "4232104482617154125016201739183438242416370454193655335830"
       ],
+      "rdvId": "3051521413536048421623442739614651540414922244660460262106",
       "id": 6
     },
     {
-      "scanners": [
-        {
-          "id": "2"
-        }
+      "scannersIds": [
+        "511452351451535534371591513523524103043181559313621335839573855"
       ],
-      "soins": [
-        {
-          "id": "7"
-        }
+      "soinsIds": [
+        "195732171844392216353137101426503494754182248611459281146484527"
       ],
-      "medicaments": [
-        {
-          "id": "1",
-          "quantite": 1
-        }
+      "medicamentsIds": [
+        "32157405822332605454109486363338294925402411252472627272022"
       ],
-      "id": 12
+      "rdvId": "1836445540301342202954281226204335464812331428851325021844",
+      "id": 7
     },
     {
-      "scanners": [],
-      "soins": [],
-      "medicaments": [
-        {
-          "id": "1",
-          "quantite": 1
-        }
+      "scannersIds": [],
+      "soinsIds": [],
+      "medicamentsIds": [
+        "531073210334140284561432209154517532419251741506036583832936"
       ],
-      "id": 13
-    },
-    {
-      "scanners": [],
-      "soins": [],
-      "medicaments": [
-        {
-          "id": "1",
-          "quantite": 1
-        }
-      ],
-      "rdvId": "1",
-      "id": 14
-    },
-    {
-      "scanners": [],
-      "soins": [],
-      "medicaments": [
-        {
-          "id": "1",
-          "quantite": 1
-        }
-      ],
-      "id": 15
-    },
-    {
-      "scanners": [],
-      "soins": [],
-      "medicaments": [
-        {
-          "id": "2",
-          "quantite": 1
-        }
-      ],
-      "id": 16
-    },
-    {
-      "scanners": [],
-      "soins": [],
-      "medicaments": [
-        {
-          "id": "6",
-          "quantite": 1
-        }
-      ],
-      "rdvId": "5",
-      "id": 17
-    },
-    {
-      "scanners": [],
-      "soins": [],
-      "medicaments": [
-        {
-          "id": "6",
-          "quantite": 1
-        }
-      ],
-      "rdvId": "5",
-      "id": 18
-    },
-    {
-      "scanners": [],
-      "soins": [],
-      "medicaments": [
-        {
-          "id": "1",
-          "quantite": 1
-        }
-      ],
-      "rdvId": "5",
-      "id": 19
-    },
-    {
-      "scanners": [],
-      "soins": [],
-      "medicaments": [
-        {
-          "id": "6",
-          "quantite": 1
-        }
-      ],
-      "rdvId": "5",
-      "id": 20
-    },
-    {
-      "scanners": [],
-      "soins": [],
-      "medicaments": [
-        {
-          "id": "7",
-          "quantite": 1
-        }
-      ],
-      "rdvId": "5",
-      "id": 21
-    },
-    {
-      "scanners": [
-        {
-          "id": "2"
-        }
-      ],
-      "soins": [],
-      "medicaments": [
-        {
-          "id": "1",
-          "quantite": 1
-        }
-      ],
-      "rdvId": "6",
-      "id": 22
+      "rdvId": "5518392324281025456043346533221581447452524160423313391252718",
+      "id": 8
     }
   ],
-  "medecins": [
-    {
-      "userID": "54356238151444225041485215278358562113455261116144032616",
-      "firstName": "outiti",
-      "lastName": "Medecin",
-      "email": "medecin@gmail.com",
-      "role": {
-        "name": "medecin"
-      }
-    },
-    {
-      "userID": "2853575017323250142844915156135424841242151293315406501936237",
-      "firstName": "abbari",
-      "lastName": "ouassim",
-      "email": "abbari@gmail.com",
-      "role": {
-        "name": "medecin"
-      }
-    }
-  ],
-  "patients": [
-    {
-      "nom": "karim",
-      "prenom": "ahmadi",
-      "adresse": "fes narjiss",
-      "telephone": "064875910",
-      "cin": "cd258974",
-      "medecin_id": "54356238151444225041485215278358562113455261116144032616",
-      "id": 1
-    },
-    {
-      "nom": "tahiri",
-      "prenom": "hassan",
-      "adresse": "mhanech tetouan",
-      "telephone": "0614789525",
-      "cin": "fr257896",
-      "medecin_id": "2853575017323250142844915156135424841242151293315406501936237",
-      "id": 2
-    },
-    {
-      "nom": "test",
-      "prenom": "test",
-      "adresse": "test tes",
-      "telephone": "0649440905",
-      "cin": "cd254895",
-      "medecin_id": "2853575017323250142844915156135424841242151293315406501936237",
-      "id": 3
-    }
-  ]
+  "getDocuments": []
 }

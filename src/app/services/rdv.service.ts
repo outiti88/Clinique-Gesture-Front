@@ -24,16 +24,15 @@ export class RdvService {
   }
 
   getRdvsFixer(){
-    return this.http.get(`${this.apiUrl}?state=fixé`);
+    return this.http.get(`${this.apiUrl}/filter?state=fixé`);
   }
 
   filter(rdv){
-    let filterUrl = 'http://localhost:3000/rdvResponse?'
+    let filterUrl = 'http://localhost:8085/rdv/filter?'
     if(rdv.date.length>0) filterUrl += "&date="+rdv.date;
-    if(rdv.patient.id.length>0) filterUrl += "&patient="+rdv.patient.patientId;
-    if(rdv.etat.length>0) filterUrl += "&state="+rdv.state;
-    if(rdv.debut.length>0) filterUrl += "&startTime="+rdv.startTime;
-    if(rdv.fin.length>0) filterUrl += "&endTime="+rdv.endTime;
+    if(rdv.state.length>0) filterUrl += "&state="+rdv.state;
+    if(rdv.startTime.length>0) filterUrl += "&startTime="+rdv.startTime;
+    if(rdv.endTime.length>0) filterUrl += "&endTime="+rdv.endTime;
 
 
     return this.http.get(filterUrl);

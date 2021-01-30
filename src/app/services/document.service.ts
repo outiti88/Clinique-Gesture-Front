@@ -9,7 +9,7 @@ export class DocumentService {
   constructor(private http : HttpClient) { }
 
 
-  apiUrl = 'http://localhost:3000/documents' ;
+  apiUrl = 'http://localhost:8085/dossiers' ;
 
   persist(document){
     return this.http.post(this.apiUrl, document);
@@ -17,7 +17,7 @@ export class DocumentService {
 
  
   getAll(id){
-    return this.http.get(`${this.apiUrl}?rdv.medecinId=${id}`);
+    return this.http.get(`${this.apiUrl}`);
 
   }
 

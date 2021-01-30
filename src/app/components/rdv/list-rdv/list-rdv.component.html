@@ -13,18 +13,10 @@
         <legend>Filter</legend>
 
         <div class="form-group row mx-auto mt-2">
-            <label for="Patient" class="col-sm-2 col-form-label">Patient</label>
-            <div class="col-sm-4">
-                <select class="form-control" id="Patient" [(ngModel)]="rdvSearch.patient.patientId">
-                    <option selected disabled>Choisissez le patient</option>
-                    <option *ngFor="let patient of patients" [value]="patient.patientId">
-                        {{getPatientName(patient.patientId)}}
-                    </option>
-                </select>
-            </div>
 
-            <label for="etat" class="col-sm-2 col-form-label">Etat</label>
-            <div class="col-sm-4">
+
+            <label for="etat" class="col-sm-4 col-form-label">Etat</label>
+            <div class="col-sm-6">
                 <select class="form-control" id="etat" [(ngModel)]="rdvSearch.state">
                     <option selected disabled>Choisissez l'etat</option>
                     <option value="fixé">Fixé</option>

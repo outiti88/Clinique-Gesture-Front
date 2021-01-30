@@ -5,6 +5,11 @@ import { ScannerService } from 'src/app/services/scanner.service';
 import { SoinsService } from 'src/app/services/soins.service';
 import { MedicamentService } from 'src/app/services/medicament.service';
 import { Document } from 'src/app/models/document';
+import * as _ from 'lodash';
+import { Router } from '@angular/router';
+
+
+
 
 @Component({
   selector: 'app-list-documents',
@@ -13,11 +18,15 @@ import { Document } from 'src/app/models/document';
 })
 export class ListDocumentsComponent implements OnInit {
 
-  constructor(private rdvService : RdvService ,
+  constructor(
+    private rdvService : RdvService ,
     private medicamentService : MedicamentService ,
     private soinService : SoinsService,
     private scannerService : ScannerService , 
-    private documentService : DocumentService) { }
+    private documentService : DocumentService
+    , private router : Router
+    ) 
+    { }
 
   ngOnInit(): void {
     this.getAllRdv();
@@ -25,6 +34,9 @@ export class ListDocumentsComponent implements OnInit {
     this.getAllSoins();
     this.getAllMedicaments();
     this.getAllDocument(localStorage.getItem('id'));
+    if(localStorage.getItem('role') == 'admin'){
+      this.router.navigate(['/users']);
+    }
   }
 
   medicamentBlock = 0 ;
@@ -41,30 +53,30 @@ export class ListDocumentsComponent implements OnInit {
 
   rdvId : any ;
 
-  medicamentFront : any =[];
+  medicamentFront : any =[]; //medicament select
   medicamentAjou : any = [] ;
   medicamentAdded : any = {
-    id : "",
+    medicamentId : "",
     quantite : 1
   }
 
   scannerFront : any = [];
   scannerAjou : any = [] ;
   scannerAdded : any = {
-    id : ""
+    scannerId : ""
     }
 
   soinFront : any = [];
   soinAjou : any = [] ;
   soinAdded : any = {
-    id : ""
+    soinId : ""
     }
 
 
-  document  : any = {
-    scanners :  [],
-      soins : [],
-    medicaments : [],
+  document  : any = { //persist
+    scannersIds :  [],
+      soinsIds : [],
+    medicamentsIds : [],
     rdvId : ""
   };
 
@@ -86,19 +98,19 @@ export class ListDocumentsComponent implements OnInit {
   }
 
   getSoinByFilter(id){
-    let soin = this.soins.filter(x => x.id == id)[0];
-    return soin.type+"  "+soin.price+"Mad" ;
+    let soin = this.soins.filter(x => x.soinId == id)[0];
+    return soin.typeSoin+"  "+soin.prix+"Mad" ;
   }
 
   getMedicamentByFilter(id){
-    let medi = this.medicaments.filter(x => x.id == id)[0];
+    let medi = this.medicaments.filter(x => x.medicamentId == id)[0];
     //this.total = medi.price;
     return medi.name+"  ("+ medi.type+")"+"  "+medi.price+"Mad" ;
   }
 
   getScannerByFilter(id){
-    let scanner = this.scanners.filter(x => x.id == id)[0];
-    return scanner.type+"  "+scanner.price+"Mad" ;
+    let scanner = this.scanners.filter(x => x.scannerId == id)[0];
+    return scanner.name+"  "+scanner.price+"Mad" ;
   }
 
   getAllMedicaments(){
@@ -112,7 +124,7 @@ export class ListDocumentsComponent implements OnInit {
 
   
   getAllSoins(){
-    this.soinService.getAll(localStorage.getItem('id')).subscribe(
+    this.soinService.getAll().subscribe(
       res => {
         this.soins = res;
         this.soinFront = res;
@@ -132,6 +144,7 @@ export class ListDocumentsComponent implements OnInit {
       res => {
         this.scanners = res;
         this.scannerFront = res;
+        console.log(this.scanners);
       }
     )
   }
@@ -141,19 +154,20 @@ export class ListDocumentsComponent implements OnInit {
       res =>
       {
         this.documents = res ;
+        console.log(this.documents);
       } 
     )
   }
 
   checkDocument(){
-    let content : Number = this.document.soins.length * 1 + this.document.medicaments.length * 1 + this.document.scanners.length * 1 ;
+    let content : Number = this.document.soinsIds.length * 1 + this.document.medicamentsIds.length * 1 + this.document.scannersIds.length * 1 ;
     return (content > 0) ? true : false;
   }
 
   addDocument(){
-    this.document.medicaments = this.medicamentAjou;
-    this.document.soins = this.soinAjou;
-    this.document.scanners = this.scannerAjou;
+    this.document.medicamentsIds = _.map(this.medicamentAjou, 'medicamentId');
+    this.document.soinsIds = _.map(this.soinAjou, 'soinId');
+    this.document.scannersIds = _.map(this.scannerAjou, 'scannerId');
     this.document.rdvId = this.rdvId;
     if(this.checkDocument()){
       let rdv : any ;
@@ -166,11 +180,16 @@ export class ListDocumentsComponent implements OnInit {
           this.showMedicamentForm();
           this.formMedicament = false;
           this.resetForm();
-          rdv = this.rdvs.filter(x => x.id == this.rdvId)[0];
-          rdv.etat = "fait";
+          rdv = this.rdvs.filter(x => x.rdvId == this.rdvId)[0];
+          rdv.state = "validé";
+          rdv.patientId = rdv.patient.patientId;
+         rdv.medecinId = rdv.medecin.userID;
           this.rdvService.annuler(rdv).subscribe(
             res => {
               console.log(res);
+            },
+            (eror) => {
+              console.log("rdv non modifié "+eror.message)
             }
         )
         }
@@ -184,20 +203,15 @@ export class ListDocumentsComponent implements OnInit {
     
   }
 
-  edit(Document){
-
-  }
-
-
   ajouterMedicament(){
   
    let medi = this.medicamentAdded;
     this.medicamentAjou = [this.medicamentAdded, ...this.medicamentAjou];
     this.medicamentAdded  = {
-      id : "",
+      medicamentId : "",
       quantite : 1
     }
-    this.medicamentFront = this.medicamentFront.filter(medicament => medicament.id != medi.id);
+    this.medicamentFront = this.medicamentFront.filter(medicament => medicament.medicamentId != medi.medicamentId);
   }
 
 
@@ -206,9 +220,9 @@ export class ListDocumentsComponent implements OnInit {
     let soin = this.soinAdded;
     this.soinAjou = [this.soinAdded, ...this.soinAjou];
     this.soinAdded  = {
-      id : ""
+      soinId : ""
     }
-    this.soinFront = this.soinFront.filter(s => s.id != soin.id);
+    this.soinFront = this.soinFront.filter(s => s.soinId != soin.soinId);
 
   }
 
@@ -216,30 +230,30 @@ export class ListDocumentsComponent implements OnInit {
     let scanner = this.scannerAdded;
     this.scannerAjou = [this.scannerAdded, ...this.scannerAjou];
     this.scannerAdded  = {
-      id : ""
+      scannerId : ""
     }
-    this.scannerFront = this.scannerFront.filter(s => s.id != scanner.id);
+    this.scannerFront = this.scannerFront.filter(s => s.scannerId != scanner.scannerId);
 
   }
 
   deleteMedicament(id){
-    let medicament = this.medicaments.filter(x => x.id == id)[0];
+    let medicament = this.medicaments.filter(x => x.medicamentId == id)[0];
     this.medicamentFront = [medicament, ...this.medicamentFront];
-    this.medicamentAjou = this.medicamentAjou.filter(medicament => medicament.id != id);
+    this.medicamentAjou = this.medicamentAjou.filter(medicament => medicament.medicamentId != id);
 
   }
 
   deleteSoin(id){
-    let soin = this.soins.filter(x => x.id == id)[0];
+    let soin = this.soins.filter(x => x.soinId == id)[0];
     this.soinFront = [soin, ...this.soinFront];
-    this.soinAjou = this.soinAjou.filter(soin => soin.id != id);
+    this.soinAjou = this.soinAjou.filter(soin => soin.soinId != id);
 
   }
 
   deleteScanner(id){
-    let scanner = this.scanners.filter(x => x.id == id)[0];
+    let scanner = this.scanners.filter(x => x.scannerId == id)[0];
     this.scannerFront = [scanner, ...this.scannerFront];
-    this.scannerAjou = this.scannerAjou.filter(scanner => scanner.id != id);
+    this.scannerAjou = this.scannerAjou.filter(scanner => scanner.scannerId != id);
 
   }
 
@@ -263,15 +277,19 @@ export class ListDocumentsComponent implements OnInit {
 
   resetForm(){
     this.medicamentAdded  = {
-      id : "",
+      medicamentId : "",
       quantite : 1
     }
     this.soinAdded  = {
-      id : ""
+      soinId : ""
     }
     this.scannerAdded  = {
-      id : ""
+      scannerId : ""
     }
+    this.soinFront = [];
+    this.scannerAdded = [];
+    this.  medicamentFront =[];
+
   }
 
 

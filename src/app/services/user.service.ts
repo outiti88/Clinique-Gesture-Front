@@ -20,9 +20,6 @@ export class UserService {
     return this.http.get(this.apiUrl);
   }
 
-
-  
-
   getUsersPage(page){
     return this.http.get(`${this.apiUrl}?page=${page}`);
   }
@@ -40,7 +37,7 @@ export class UserService {
   }
 
   getMedecins(){
-    return this.http.get(this.apiUrl); // que les medecins
+    return this.http.get(`${this.apiUrl}/role/271823436018105328455221271447503413375744138333751222432223`); // que les medecins
   }
 
 }

@@ -1,0 +1,33 @@
+<div class="container mt-5 text-xl-center">
+
+    <div class="row mb-5">
+        <h1 class="col-12 text-center ">Liste des Factures</h1>
+    </div>
+
+
+    <div class="row">
+        <div *ngIf="chargement" class="card col-6 mb-3 mx-auto border-info d-flex justify-content-around" style="max-width: 20rem;">
+            <div class="spinner-grow text-info mx-auto" style="width: 4rem;height: 4rem;"></div>
+        </div>
+
+        <div *ngFor="let facture of factures" class="card col-6 mb-3 mx-auto" style="max-width: 20rem;" [ngClass]="{'border-warning': facture.paid == false,  'border-success': facture.paid == true}">
+
+            <div class="card-header">
+                <span *ngIf="facture.paid == false" class="badge badge-warning badge-pill float-left">Non Payée</span>
+                <span *ngIf="facture.paid == true" class="badge badge-success badge-pill float-left">Payée</span>
+
+
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">{{facture.totalPrice}} Mad </h4>
+                <h4 class="card-title"> Nombre de documents: {{facture.dossiersResponses.length}}</h4>
+
+                <button *ngIf="facture.paid == false" (click)="payer(facture)" class="btn btn-success">Payée</button>
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
